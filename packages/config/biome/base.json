@@ -1,0 +1,94 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "trailingCommas": "es5",
+      "semicolons": "always"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "useButtonType": "warn",
+        "useSemanticElements": "warn",
+        "noSvgWithoutTitle": "off",
+        "useFocusableInteractive": "warn"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off",
+        "noGlobalIsNan": "off",
+        "useIterableCallbackReturn": "off",
+        "noDocumentCookie": "off",
+        "noConsole": {
+          "level": "error",
+          "options": {
+            "allow": ["error", "warn", "info", "debug"]
+          }
+        }
+      },
+      "correctness": {
+        "noUnusedFunctionParameters": "error",
+        "useExhaustiveDependencies": "warn"
+      },
+      "style": {
+        "noNonNullAssertion": "error",
+        "useTemplate": "error",
+        "useImportType": "error",
+        "useExportType": "error",
+        "noEnum": "error",
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            "filenameCases": ["kebab-case", "PascalCase"],
+            "strictCase": false
+          }
+        },
+        "useNamingConvention": {
+          "level": "error",
+          "options": {
+            "strictCase": false,
+            "requireAscii": true,
+            "conventions": [
+              {
+                "selector": { "kind": "objectLiteralProperty" },
+                "match": ".*"
+              },
+              {
+                "selector": { "kind": "objectLiteralMember" },
+                "match": ".*"
+              },
+              {
+                "selector": { "kind": "typeProperty" },
+                "match": ".*"
+              }
+            ]
+          }
+        },
+        "noNestedTernary": "warn"
+      },
+      "complexity": {
+        "noUselessFragments": "error",
+        "useOptionalChain": "error"
+      },
+      "nursery": {
+        "noFloatingPromises": "error",
+        "useSortedClasses": {
+          "level": "warn",
+          "options": {
+            "attributes": ["className"],
+            "functions": ["cn", "cva", "tw", "clsx"]
+          }
+        }
+      }
+    }
+  }
+}

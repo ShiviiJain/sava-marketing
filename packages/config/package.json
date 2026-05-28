@@ -1,0 +1,11 @@
+{
+  "name": "@sava/config",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    "./typescript/base": "./typescript/base.json",
+    "./typescript/nextjs": "./typescript/nextjs.json",
+    "./typescript/react-native": "./typescript/react-native.json",
+    "./biome/base": "./biome/base.json"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@sava/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tokens.css": "./tokens.css",
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "sync": "bun scripts/sync-tokens.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@sava/config": "workspace:*",
+    "@types/node": "^22.10.5",
+    "postcss": "^8.4.49",
+    "typescript": "^5"
+  }
+}

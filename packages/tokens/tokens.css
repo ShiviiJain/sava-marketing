@@ -1,0 +1,1027 @@
+/* Sava design tokens — single source of truth.
+ *
+ * Edit this file. Then run `bun run --filter=@sava/tokens sync` from
+ * the repo root to regenerate the JS token registry the design site
+ * consumes. Both this file and the generated TypeScript are committed.
+ *
+ * Consumed by:
+ *   apps/web         — `@import "@sava/tokens/tokens.css"` in globals.css
+ *   apps/design      — same import in global.css; JS registry powers the
+ *                      Color + Typography preview pages
+ *   apps/tools       — same import (when scaffolded — SAV-681)
+ *   Storybook        — transitively via apps/web's globals.css
+ *
+ * Add new tokens to the appropriate block:
+ *   `@theme inline` for Tailwind v4 theme aliases (utility plumbing)
+ *   `:root`         for light-mode token values
+ *   `.dark`         for dark-mode overrides
+ *
+ * Token names follow the pattern `--<concept>-<step>` for ramps and
+ * `--<role>` / `--<role>-foreground` for semantic pairs. The
+ * `-foreground` siblings are auto-discovered by the contrast checker.
+ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
+  --color-chart-9: var(--chart-9);
+  --color-chart-10: var(--chart-10);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: Geist, Geist Fallback, sans-serif;
+  --font-mono: Geist Mono, Geist Mono Fallback, monospace;
+  --font-serif: var(--font-charter), Charter, Georgia, serif;
+  --font-cursive: "Snell Roundhand", "Brush Script MT", "Lucida Handwriting", cursive;
+
+  /* --- Type scale ---
+     Two stacked scales: product UI (1.125 ratio, ~5% denser than the
+     Tailwind default to favour table/form density) and a marketing
+     scale (1.333 ratio) that picks up where product ends so hero copy
+     has somewhere to live without crowding chrome.
+
+     Product UI       Marketing
+     2xs  10/14       2xl  28/36   <- eyebrows + dense chrome
+     xs   11/16       3xl  38/48
+     sm   13/20       4xl  52/60
+     base 15/22       5xl  72/78    <- hero starts here
+     md   17/26       6xl  96/100
+     lg   19/28       7xl  128/130
+     xl   22/30
+
+     Numbers are calibrated against Geist (product) and Charter
+     (marketing display) — change them only after testing with real
+     copy, not lorem. */
+  --text-2xs: 0.625rem; /* 10px — sub-token reserved for eyebrows + dense chrome */
+  --text-2xs--line-height: 0.875rem; /* 14px */
+  --text-xs: 0.6875rem; /* 11px */
+  --text-xs--line-height: 1rem; /* 16px */
+  --text-sm: 0.8125rem; /* 13px */
+  --text-sm--line-height: 1.25rem; /* 20px */
+  --text-base: 0.9375rem; /* 15px */
+  --text-base--line-height: 1.375rem; /* 22px */
+  --text-md: 1.0625rem; /* 17px */
+  --text-md--line-height: 1.625rem; /* 26px */
+  --text-lg: 1.1875rem; /* 19px */
+  --text-lg--line-height: 1.75rem; /* 28px */
+  --text-xl: 1.375rem; /* 22px */
+  --text-xl--line-height: 1.875rem; /* 30px */
+  --text-2xl: 1.75rem; /* 28px */
+  --text-2xl--line-height: 2.25rem; /* 36px */
+  --text-3xl: 2.375rem; /* 38px */
+  --text-3xl--line-height: 3rem; /* 48px */
+  --text-4xl: 3.25rem; /* 52px */
+  --text-4xl--line-height: 3.75rem; /* 60px */
+  --text-5xl: 4.5rem; /* 72px */
+  --text-5xl--line-height: 4.875rem; /* 78px */
+  --text-6xl: 6rem; /* 96px */
+  --text-6xl--line-height: 6.25rem; /* 100px */
+  --text-7xl: 8rem; /* 128px */
+  --text-7xl--line-height: 8.125rem; /* 130px */
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --shadow-2xs: 0 1px 3px 0px oklch(0 0 0 / 0.05);
+  --shadow-xs: 0 1px 3px 0px oklch(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
+  --shadow: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
+  --shadow-md: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 2px 4px -1px oklch(0 0 0 / 0.1);
+  --shadow-lg: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 4px 6px -1px oklch(0 0 0 / 0.1);
+  --shadow-xl: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 8px 10px -1px oklch(0 0 0 / 0.1);
+  --shadow-2xl: 0 1px 3px 0px oklch(0 0 0 / 0.25);
+
+  /* Status colors */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  /* Urgency colors */
+  --color-urgency-critical: var(--urgency-critical);
+  --color-urgency-critical-foreground: var(--urgency-critical-foreground);
+  --color-urgency-high: var(--urgency-high);
+  --color-urgency-high-foreground: var(--urgency-high-foreground);
+  --color-urgency-medium: var(--urgency-medium);
+  --color-urgency-medium-foreground: var(--urgency-medium-foreground);
+  --color-urgency-low: var(--urgency-low);
+  --color-urgency-low-foreground: var(--urgency-low-foreground);
+
+  /* Brand-true logo color (masthead/illustration only — not for buttons) */
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+
+  /* Financial gain / loss — separate from success/destructive so workflow
+     status and money status can drift apart without breaking each other. */
+  --color-gain: var(--gain);
+  --color-loss: var(--loss);
+
+  /* --- Palette ramps (Cedar / Glacier / Moss / Ember / Rust / Ash) ---
+     Exposed as Tailwind utilities so `bg-cedar-100`, `text-moss-700`, etc.
+     work for any case where a component needs a specific tint at a known
+     lightness rather than alpha-blending against an unknown surface. */
+  --color-cedar-50: var(--cedar-50);
+  --color-cedar-100: var(--cedar-100);
+  --color-cedar-200: var(--cedar-200);
+  --color-cedar-300: var(--cedar-300);
+  --color-cedar-400: var(--cedar-400);
+  --color-cedar-500: var(--cedar-500);
+  --color-cedar-600: var(--cedar-600);
+  --color-cedar-700: var(--cedar-700);
+  --color-cedar-800: var(--cedar-800);
+  --color-cedar-900: var(--cedar-900);
+  --color-cedar-950: var(--cedar-950);
+  --color-glacier-50: var(--glacier-50);
+  --color-glacier-100: var(--glacier-100);
+  --color-glacier-200: var(--glacier-200);
+  --color-glacier-300: var(--glacier-300);
+  --color-glacier-400: var(--glacier-400);
+  --color-glacier-500: var(--glacier-500);
+  --color-glacier-600: var(--glacier-600);
+  --color-glacier-700: var(--glacier-700);
+  --color-glacier-800: var(--glacier-800);
+  --color-glacier-900: var(--glacier-900);
+  --color-glacier-950: var(--glacier-950);
+  --color-moss-50: var(--moss-50);
+  --color-moss-100: var(--moss-100);
+  --color-moss-200: var(--moss-200);
+  --color-moss-300: var(--moss-300);
+  --color-moss-400: var(--moss-400);
+  --color-moss-500: var(--moss-500);
+  --color-moss-600: var(--moss-600);
+  --color-moss-700: var(--moss-700);
+  --color-moss-800: var(--moss-800);
+  --color-moss-900: var(--moss-900);
+  --color-moss-950: var(--moss-950);
+  --color-ember-50: var(--ember-50);
+  --color-ember-100: var(--ember-100);
+  --color-ember-200: var(--ember-200);
+  --color-ember-300: var(--ember-300);
+  --color-ember-400: var(--ember-400);
+  --color-ember-500: var(--ember-500);
+  --color-ember-600: var(--ember-600);
+  --color-ember-700: var(--ember-700);
+  --color-ember-800: var(--ember-800);
+  --color-ember-900: var(--ember-900);
+  --color-ember-950: var(--ember-950);
+  --color-rust-50: var(--rust-50);
+  --color-rust-100: var(--rust-100);
+  --color-rust-200: var(--rust-200);
+  --color-rust-300: var(--rust-300);
+  --color-rust-400: var(--rust-400);
+  --color-rust-500: var(--rust-500);
+  --color-rust-600: var(--rust-600);
+  --color-rust-700: var(--rust-700);
+  --color-rust-800: var(--rust-800);
+  --color-rust-900: var(--rust-900);
+  --color-rust-950: var(--rust-950);
+  --color-sky-50: var(--sky-50);
+  --color-sky-100: var(--sky-100);
+  --color-sky-200: var(--sky-200);
+  --color-sky-300: var(--sky-300);
+  --color-sky-400: var(--sky-400);
+  --color-sky-500: var(--sky-500);
+  --color-sky-600: var(--sky-600);
+  --color-sky-700: var(--sky-700);
+  --color-sky-800: var(--sky-800);
+  --color-sky-900: var(--sky-900);
+  --color-sky-950: var(--sky-950);
+  --color-heather-50: var(--heather-50);
+  --color-heather-100: var(--heather-100);
+  --color-heather-200: var(--heather-200);
+  --color-heather-300: var(--heather-300);
+  --color-heather-400: var(--heather-400);
+  --color-heather-500: var(--heather-500);
+  --color-heather-600: var(--heather-600);
+  --color-heather-700: var(--heather-700);
+  --color-heather-800: var(--heather-800);
+  --color-heather-900: var(--heather-900);
+  --color-heather-950: var(--heather-950);
+  --color-iris-50: var(--iris-50);
+  --color-iris-100: var(--iris-100);
+  --color-iris-200: var(--iris-200);
+  --color-iris-300: var(--iris-300);
+  --color-iris-400: var(--iris-400);
+  --color-iris-500: var(--iris-500);
+  --color-iris-600: var(--iris-600);
+  --color-iris-700: var(--iris-700);
+  --color-iris-800: var(--iris-800);
+  --color-iris-900: var(--iris-900);
+  --color-iris-950: var(--iris-950);
+  --color-maple-50: var(--maple-50);
+  --color-maple-100: var(--maple-100);
+  --color-maple-200: var(--maple-200);
+  --color-maple-300: var(--maple-300);
+  --color-maple-400: var(--maple-400);
+  --color-maple-500: var(--maple-500);
+  --color-maple-600: var(--maple-600);
+  --color-maple-700: var(--maple-700);
+  --color-maple-800: var(--maple-800);
+  --color-maple-900: var(--maple-900);
+  --color-maple-950: var(--maple-950);
+  --color-tide-50: var(--tide-50);
+  --color-tide-100: var(--tide-100);
+  --color-tide-200: var(--tide-200);
+  --color-tide-300: var(--tide-300);
+  --color-tide-400: var(--tide-400);
+  --color-tide-500: var(--tide-500);
+  --color-tide-600: var(--tide-600);
+  --color-tide-700: var(--tide-700);
+  --color-tide-800: var(--tide-800);
+  --color-tide-900: var(--tide-900);
+  --color-tide-950: var(--tide-950);
+  --color-coral-50: var(--coral-50);
+  --color-coral-100: var(--coral-100);
+  --color-coral-200: var(--coral-200);
+  --color-coral-300: var(--coral-300);
+  --color-coral-400: var(--coral-400);
+  --color-coral-500: var(--coral-500);
+  --color-coral-600: var(--coral-600);
+  --color-coral-700: var(--coral-700);
+  --color-coral-800: var(--coral-800);
+  --color-coral-900: var(--coral-900);
+  --color-coral-950: var(--coral-950);
+  --color-tundra-50: var(--tundra-50);
+  --color-tundra-100: var(--tundra-100);
+  --color-tundra-200: var(--tundra-200);
+  --color-tundra-300: var(--tundra-300);
+  --color-tundra-400: var(--tundra-400);
+  --color-tundra-500: var(--tundra-500);
+  --color-tundra-600: var(--tundra-600);
+  --color-tundra-650: var(--tundra-650);
+  --color-tundra-700: var(--tundra-700);
+  --color-tundra-750: var(--tundra-750);
+  --color-tundra-800: var(--tundra-800);
+  --color-tundra-850: var(--tundra-850);
+  --color-tundra-900: var(--tundra-900);
+  --color-tundra-950: var(--tundra-950);
+  --color-ash-25: var(--ash-25);
+  --color-ash-50: var(--ash-50);
+  --color-ash-75: var(--ash-75);
+  --color-ash-100: var(--ash-100);
+  --color-ash-150: var(--ash-150);
+  --color-ash-200: var(--ash-200);
+  --color-ash-250: var(--ash-250);
+  --color-ash-300: var(--ash-300);
+  --color-ash-350: var(--ash-350);
+  --color-ash-400: var(--ash-400);
+  --color-ash-450: var(--ash-450);
+  --color-ash-500: var(--ash-500);
+  --color-ash-550: var(--ash-550);
+  --color-ash-600: var(--ash-600);
+  --color-ash-650: var(--ash-650);
+  --color-ash-700: var(--ash-700);
+  --color-ash-750: var(--ash-750);
+  --color-ash-800: var(--ash-800);
+  --color-ash-850: var(--ash-850);
+  --color-ash-900: var(--ash-900);
+  --color-ash-950: var(--ash-950);
+  --color-ash-975: var(--ash-975);
+
+  /* Layered surfaces — three rungs of elevation, driven off Ash so the
+     stack reads as quiet structure rather than tinted content. */
+  --color-surface: var(--surface);
+  --color-surface-quiet: var(--surface-quiet);
+  --color-surface-sunken: var(--surface-sunken);
+
+  /* Border weight scale — subtle for hairline row dividers, default for
+     standard cards and inputs, strong for section breaks and modals. */
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+
+  /* Secondary text level — sits between body (--foreground) and captions
+     (--muted-foreground). Use for labels, table headers, and any
+     supporting text that should still read as primary structure. */
+  --color-foreground-secondary: var(--foreground-secondary);
+
+  /* Status pill pairs (bg + foreground) */
+  --color-status-neutral: var(--status-neutral);
+  --color-status-neutral-foreground: var(--status-neutral-foreground);
+  --color-status-info: var(--status-info);
+  --color-status-info-foreground: var(--status-info-foreground);
+  --color-status-warning: var(--status-warning);
+  --color-status-warning-foreground: var(--status-warning-foreground);
+  --color-status-success: var(--status-success);
+  --color-status-success-foreground: var(--status-success-foreground);
+  --color-status-danger: var(--status-danger);
+  --color-status-danger-foreground: var(--status-danger-foreground);
+  --color-status-purple: var(--status-purple);
+  --color-status-purple-foreground: var(--status-purple-foreground);
+  --color-status-indigo: var(--status-indigo);
+  --color-status-indigo-foreground: var(--status-indigo-foreground);
+  --color-status-emerald: var(--status-emerald);
+  --color-status-emerald-foreground: var(--status-emerald-foreground);
+  --color-status-sky: var(--status-sky);
+  --color-status-sky-foreground: var(--status-sky-foreground);
+  --color-status-teal: var(--status-teal);
+  --color-status-teal-foreground: var(--status-teal-foreground);
+  --color-status-orange: var(--status-orange);
+  --color-status-orange-foreground: var(--status-orange-foreground);
+  --color-status-rose: var(--status-rose);
+  --color-status-rose-foreground: var(--status-rose-foreground);
+  --color-status-slate: var(--status-slate);
+  --color-status-slate-foreground: var(--status-slate-foreground);
+
+  /* Dot / solid accent colors */
+  --color-dot-blue: var(--dot-blue);
+  --color-dot-green: var(--dot-green);
+  --color-dot-red: var(--dot-red);
+  --color-dot-amber: var(--dot-amber);
+  --color-dot-purple: var(--dot-purple);
+  --color-dot-indigo: var(--dot-indigo);
+  --color-dot-sky: var(--dot-sky);
+  --color-dot-teal: var(--dot-teal);
+  --color-dot-orange: var(--dot-orange);
+  --color-dot-emerald: var(--dot-emerald);
+  --color-dot-gray: var(--dot-gray);
+
+  /* Form fields — token surface for Input/Textarea/Select/Label and the
+     Field shell. Component code binds to these via the Field primitives;
+     never reach for --ash-* or --muted-foreground directly inside a form. */
+  --color-field-bg: var(--field-bg);
+  --color-field-bg-readonly: var(--field-bg-readonly);
+  --color-field-bg-disabled: var(--field-bg-disabled);
+  --color-field-border: var(--field-border);
+  --color-field-border-hover: var(--field-border-hover);
+  --color-field-border-focus: var(--field-border-focus);
+  --color-field-border-invalid: var(--field-border-invalid);
+  --color-field-ring: var(--field-ring);
+  --color-field-ring-invalid: var(--field-ring-invalid);
+  --color-field-text: var(--field-text);
+  --color-field-text-disabled: var(--field-text-disabled);
+  --color-field-placeholder: var(--field-placeholder);
+  --color-field-label: var(--field-label);
+  --color-field-description: var(--field-description);
+  --color-field-error: var(--field-error);
+  --color-field-icon: var(--field-icon);
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  /*
+   * Sava palette — thirteen named ramps modeled after the Greenhouse system.
+   * Each family is a single hue at varying lightness; chroma rolls off at
+   * the extremes so the lightest tints don't read as overly tinted and the
+   * darkest don't muddy. Component code should prefer semantic aliases
+   * (--primary, --success, etc.) over palette tokens (--glacier-500), but
+   * both are exposed via @theme so `bg-iris-100`, `text-moss-700`, etc.
+   * work as Tailwind utilities when a component needs a specific tint.
+   *
+   * Six semantic ramps — these drive --primary, --success, etc.:
+   *   Cedar    — hue 210, brand teal. Logo-true at Cedar 600. Chrome only.
+   *   Glacier  — hue 250, interactive primary. CTA, focus rings, links.
+   *   Moss     — hue 155, success / gain.
+   *   Ember    — hue 70,  warning.
+   *   Rust     — hue 25,  destructive / loss.
+   *   Ash      — near-neutrals with a barely-perceptible Cedar tint
+   *              (hue 210, chroma 0.003–0.004). Doubled to 22 steps for
+   *              fine-grained control on borders, dividers, and surfaces.
+   *
+   * Six categorization ramps — these drive non-semantic dots, status pills,
+   * and chart series beyond the six semantic hues:
+   *   Sky      — hue 230, true cyan-blue.
+   *   Heather  — hue 270, indigo / violet.
+   *   Iris     — hue 295, purple.
+   *   Maple    — hue 55,  warm orange.
+   *   Tide     — hue 200, teal (distinct from brand-muted Cedar).
+   *   Coral    — hue 10,  rose / pink-red.
+   *
+   * One chrome ramp — drives dark-mode surfaces:
+   *   Tundra   — hue 210, chroma 0.005–0.03. Cedar-traced grays for
+   *              backgrounds, cards, sidebars. Sits between Ash (chroma 0)
+   *              and Cedar (saturated brand). Extra steps at 650/750/850
+   *              to capture the dark-mode chrome ladder.
+   */
+
+  /* --- Cedar (hue 210, brand teal — also the interactive primary) --- */
+  --cedar-50: oklch(0.97 0.003 210);
+  --cedar-100: oklch(0.94 0.01 210);
+  --cedar-200: oklch(0.86 0.02 210);
+  --cedar-300: oklch(0.78 0.035 210);
+  --cedar-400: oklch(0.65 0.08 210); /* dark-mode primary */
+  --cedar-500: oklch(0.45 0.08 210); /* light-mode primary */
+  --cedar-600: oklch(0.334 0.041 210); /* logo-true #1a3c42 */
+  --cedar-700: oklch(0.27 0.03 210);
+  --cedar-800: oklch(0.2 0.02 210);
+  --cedar-900: oklch(0.15 0.012 210);
+  --cedar-950: oklch(0.1 0.008 210);
+
+  /* --- Glacier (hue 250, interactive blue) --- */
+  --glacier-50: oklch(0.97 0.005 250);
+  --glacier-100: oklch(0.93 0.02 250);
+  --glacier-200: oklch(0.86 0.045 250);
+  --glacier-300: oklch(0.76 0.085 250);
+  --glacier-400: oklch(0.62 0.13 250);
+  --glacier-500: oklch(0.5 0.16 250);
+  --glacier-600: oklch(0.4 0.155 250);
+  --glacier-700: oklch(0.32 0.13 250);
+  --glacier-800: oklch(0.24 0.1 250);
+  --glacier-900: oklch(0.18 0.07 250);
+  --glacier-950: oklch(0.12 0.05 250);
+
+  /* --- Moss (hue 155, success / gain) --- */
+  --moss-50: oklch(0.97 0.008 155);
+  --moss-100: oklch(0.93 0.022 155);
+  --moss-200: oklch(0.85 0.045 155);
+  --moss-300: oklch(0.74 0.075 155);
+  --moss-400: oklch(0.62 0.1 155);
+  --moss-500: oklch(0.5 0.13 155);
+  --moss-600: oklch(0.42 0.12 155);
+  --moss-700: oklch(0.34 0.1 155);
+  --moss-800: oklch(0.26 0.08 155);
+  --moss-900: oklch(0.18 0.05 155);
+  --moss-950: oklch(0.12 0.03 155);
+
+  /* --- Ember (hue 70, warning) --- */
+  --ember-50: oklch(0.97 0.015 70);
+  --ember-100: oklch(0.94 0.04 70);
+  --ember-200: oklch(0.88 0.07 70);
+  --ember-300: oklch(0.82 0.1 70);
+  --ember-400: oklch(0.77 0.13 70);
+  --ember-500: oklch(0.72 0.14 70);
+  --ember-600: oklch(0.62 0.13 70);
+  --ember-700: oklch(0.5 0.11 70);
+  --ember-800: oklch(0.36 0.08 70);
+  --ember-900: oklch(0.24 0.05 70);
+  --ember-950: oklch(0.16 0.03 70);
+
+  /* --- Rust (hue 25, destructive / loss) --- */
+  --rust-50: oklch(0.97 0.012 25);
+  --rust-100: oklch(0.94 0.03 25);
+  --rust-200: oklch(0.86 0.07 25);
+  --rust-300: oklch(0.76 0.115 25);
+  --rust-400: oklch(0.65 0.16 25);
+  --rust-500: oklch(0.55 0.2 25);
+  --rust-600: oklch(0.46 0.18 25);
+  --rust-700: oklch(0.38 0.15 25);
+  --rust-800: oklch(0.28 0.11 25);
+  --rust-900: oklch(0.2 0.07 25);
+  --rust-950: oklch(0.13 0.05 25);
+
+  /*
+   * Categorization ramps — extension beyond the six semantic hues so every
+   * non-semantic dot, status pill, and chart series is sourced from a
+   * named ramp instead of a one-off OKLch. Names continue the northern-
+   * landscape register so they read as siblings of Cedar/Moss/etc.
+   */
+
+  /* --- Sky (hue 230, true cyan-blue) --- */
+  --sky-50: oklch(0.97 0.005 230);
+  --sky-100: oklch(0.93 0.02 230);
+  --sky-200: oklch(0.86 0.05 230);
+  --sky-300: oklch(0.76 0.1 230);
+  --sky-400: oklch(0.65 0.15 230);
+  --sky-500: oklch(0.55 0.18 230);
+  --sky-600: oklch(0.45 0.16 230);
+  --sky-700: oklch(0.36 0.13 230);
+  --sky-800: oklch(0.27 0.1 230);
+  --sky-900: oklch(0.18 0.07 230);
+  --sky-950: oklch(0.12 0.05 230);
+
+  /* --- Heather (hue 270, indigo) --- */
+  --heather-50: oklch(0.97 0.008 270);
+  --heather-100: oklch(0.93 0.025 270);
+  --heather-200: oklch(0.86 0.055 270);
+  --heather-300: oklch(0.76 0.105 270);
+  --heather-400: oklch(0.64 0.15 270);
+  --heather-500: oklch(0.55 0.18 270);
+  --heather-600: oklch(0.44 0.17 270);
+  --heather-700: oklch(0.35 0.14 270);
+  --heather-800: oklch(0.26 0.1 270);
+  --heather-900: oklch(0.19 0.07 270);
+  --heather-950: oklch(0.12 0.05 270);
+
+  /* --- Iris (hue 295, purple) --- */
+  --iris-50: oklch(0.97 0.008 295);
+  --iris-100: oklch(0.93 0.025 295);
+  --iris-200: oklch(0.86 0.06 295);
+  --iris-300: oklch(0.76 0.11 295);
+  --iris-400: oklch(0.65 0.155 295);
+  --iris-500: oklch(0.55 0.18 295);
+  --iris-600: oklch(0.45 0.17 295);
+  --iris-700: oklch(0.36 0.14 295);
+  --iris-800: oklch(0.28 0.1 295);
+  --iris-900: oklch(0.2 0.07 295);
+  --iris-950: oklch(0.13 0.05 295);
+
+  /* --- Maple (hue 55, warm orange) --- */
+  --maple-50: oklch(0.97 0.012 55);
+  --maple-100: oklch(0.94 0.04 55);
+  --maple-200: oklch(0.88 0.08 55);
+  --maple-300: oklch(0.8 0.13 55);
+  --maple-400: oklch(0.7 0.17 55);
+  --maple-500: oklch(0.62 0.17 55);
+  --maple-600: oklch(0.54 0.16 55);
+  --maple-700: oklch(0.44 0.13 55);
+  --maple-800: oklch(0.32 0.1 55);
+  --maple-900: oklch(0.22 0.06 55);
+  --maple-950: oklch(0.14 0.04 55);
+
+  /* --- Tide (hue 200, teal) --- */
+  --tide-50: oklch(0.97 0.005 200);
+  --tide-100: oklch(0.94 0.018 200);
+  --tide-200: oklch(0.86 0.04 200);
+  --tide-300: oklch(0.76 0.08 200);
+  --tide-400: oklch(0.66 0.11 200);
+  --tide-500: oklch(0.55 0.13 200);
+  --tide-600: oklch(0.45 0.12 200);
+  --tide-700: oklch(0.36 0.1 200);
+  --tide-800: oklch(0.27 0.08 200);
+  --tide-900: oklch(0.19 0.05 200);
+  --tide-950: oklch(0.12 0.03 200);
+
+  /* --- Coral (hue 10, rose) --- */
+  --coral-50: oklch(0.97 0.012 10);
+  --coral-100: oklch(0.94 0.03 10);
+  --coral-200: oklch(0.87 0.06 10);
+  --coral-300: oklch(0.78 0.11 10);
+  --coral-400: oklch(0.68 0.16 10);
+  --coral-500: oklch(0.58 0.18 10);
+  --coral-600: oklch(0.49 0.17 10);
+  --coral-700: oklch(0.4 0.14 10);
+  --coral-800: oklch(0.3 0.1 10);
+  --coral-900: oklch(0.21 0.07 10);
+  --coral-950: oklch(0.14 0.05 10);
+
+  /* --- Tundra (hue 210, chroma 0.005–0.03 — Cedar-traced grays for chrome) --- */
+  /* The dark-mode chrome family. Same hue as Cedar, but pulled to lower
+     chroma so backgrounds, cards, sidebars, and panels keep a hint of
+     brand warmth without competing with content. Sits between Ash
+     (chroma 0.004 — true neutral) and Cedar (chroma 0.02–0.08 — saturated
+     brand). Extra steps at 650/750/850 capture the actual lightness
+     ladder used by the dark-mode chrome stack. */
+  --tundra-50: oklch(0.97 0.003 210);
+  --tundra-100: oklch(0.94 0.005 210);
+  --tundra-200: oklch(0.86 0.01 210);
+  --tundra-300: oklch(0.74 0.02 210);
+  --tundra-400: oklch(0.55 0.025 210);
+  --tundra-500: oklch(0.4 0.025 210);
+  --tundra-600: oklch(0.32 0.03 210);
+  --tundra-650: oklch(0.3 0.02 210);
+  --tundra-700: oklch(0.27 0.018 210);
+  --tundra-750: oklch(0.24 0.015 210);
+  --tundra-800: oklch(0.2 0.012 210);
+  --tundra-850: oklch(0.18 0.012 210);
+  --tundra-900: oklch(0.15 0.01 210);
+  --tundra-950: oklch(0.1 0.008 210);
+
+  /* --- Ash (hue 210, chroma 0.003–0.004 — near-neutrals tinted toward Cedar) --- */
+  --ash-25: oklch(0.99 0.003 210);
+  --ash-50: oklch(0.98 0.003 210);
+  --ash-75: oklch(0.965 0.004 210);
+  --ash-100: oklch(0.95 0.004 210);
+  --ash-150: oklch(0.93 0.004 210);
+  --ash-200: oklch(0.91 0.004 210);
+  --ash-250: oklch(0.885 0.004 210);
+  --ash-300: oklch(0.86 0.004 210);
+  --ash-350: oklch(0.8 0.004 210);
+  --ash-400: oklch(0.74 0.004 210);
+  --ash-450: oklch(0.645 0.004 210);
+  --ash-500: oklch(0.55 0.004 210);
+  --ash-550: oklch(0.485 0.004 210);
+  --ash-600: oklch(0.42 0.004 210);
+  --ash-650: oklch(0.37 0.004 210);
+  --ash-700: oklch(0.32 0.004 210);
+  --ash-750: oklch(0.27 0.004 210);
+  --ash-800: oklch(0.22 0.004 210);
+  --ash-850: oklch(0.185 0.004 210);
+  --ash-900: oklch(0.15 0.004 210);
+  --ash-950: oklch(0.1 0.003 210);
+  --ash-975: oklch(0.07 0.003 210);
+
+  /* --- Semantic aliases (component-facing API) --- */
+  --background: var(--ash-75);
+  --foreground: var(--ash-900);
+  --foreground-secondary: var(--ash-700);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ash-900);
+  --surface: oklch(1 0 0);
+  --surface-quiet: var(--ash-50);
+  --surface-sunken: var(--ash-100);
+  --border-subtle: var(--ash-100);
+  --border-strong: var(--ash-300);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ash-900);
+  --primary: var(--cedar-500);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: var(--ash-150);
+  --secondary-foreground: var(--ash-700);
+  --muted: var(--ash-75);
+  --muted-foreground: var(--ash-500);
+  --accent: var(--ash-100);
+  --accent-foreground: var(--cedar-500);
+  --destructive: var(--rust-500);
+  --destructive-foreground: oklch(1 0 0);
+  --border: var(--ash-200);
+  --input: var(--ash-200);
+  --ring: var(--cedar-500);
+  --brand: var(--cedar-600);
+  --brand-foreground: oklch(1 0 0);
+  --gain: var(--moss-500);
+  --loss: var(--rust-500);
+  --chart-1: var(--cedar-500);
+  --chart-2: var(--moss-500);
+  --chart-3: var(--ember-500);
+  --chart-4: var(--rust-500);
+  --chart-5: var(--glacier-500);
+  --chart-6: var(--iris-500);
+  --chart-7: var(--maple-500);
+  --chart-8: var(--tide-500);
+  --chart-9: var(--heather-500);
+  --chart-10: var(--coral-500);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: var(--ash-900);
+  --sidebar-primary: var(--cedar-500);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: var(--cedar-100);
+  --sidebar-accent-foreground: var(--cedar-500);
+  --sidebar-border: var(--ash-200);
+  --sidebar-ring: var(--cedar-500);
+
+  --font-sans: Geist, Geist Fallback, sans-serif;
+  --font-mono: Geist Mono, Geist Mono Fallback, monospace;
+  /* Charter — Bitstream/Carter, 1987. Sturdy serifs and large counters
+     designed for screen rendering at low resolution; reads cleanly at UI
+     sizes without optical-size axis tricks. Four discrete weights only
+     (regular / italic / bold / bold italic), so no font-light or font-thin
+     work on serif text. Loaded via next/font/local from charter-webfont
+     for auto-preload + metric-adjusted fallback. See app/layout.tsx. */
+  --font-serif: var(--font-charter), Charter, Georgia, serif;
+  /* Handwriting stack for mock signatures on the fee agreement signing
+     overlay. System-only — no external web font needed. */
+  --font-cursive: "Snell Roundhand", "Brush Script MT", "Lucida Handwriting", cursive;
+
+  --radius: 0.375rem;
+
+  --shadow-2xs: 0 1px 3px 0px oklch(0 0 0 / 0.05);
+  --shadow-xs: 0 1px 3px 0px oklch(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
+  --shadow: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
+  --shadow-md: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 2px 4px -1px oklch(0 0 0 / 0.1);
+  --shadow-lg: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 4px 6px -1px oklch(0 0 0 / 0.1);
+  --shadow-xl: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 8px 10px -1px oklch(0 0 0 / 0.1);
+  --shadow-2xl: 0 1px 3px 0px oklch(0 0 0 / 0.25);
+
+  /* --- Saturated semantic colors (NOT pill tints) ---
+     Owned by full-bleed surfaces — alert banners, callouts, prose-flow
+     icons, brand emphasis. NOT consumed by atoms (StatusPill / Badge use
+     `--status-*` pill pairs below; ConfidenceBadge uses `--status-success`
+     etc.). Keep these separate so a saturated success-banner doesn't
+     drift if pill tints get re-balanced. */
+  --success: var(--moss-500);
+  --success-foreground: oklch(1 0 0);
+  --warning: var(--ember-500);
+  --warning-foreground: var(--ash-900);
+  --info: var(--glacier-500);
+  --info-foreground: oklch(1 0 0);
+
+  /* --- Urgency colors ---
+     Priority axis (critical → low) — distinct from the lifecycle axis the
+     `--status-*` pill pairs cover. Used by dashboard urgency dots and
+     task-urgency surfaces. Not a Phase-2 atom: per the Phase 4 sweep
+     (SAV-835), urgency surfaces migrate to StatusDot with a per-state
+     glyph; these tokens stay as the saturated palette StatusDot reads. */
+  --urgency-critical: var(--rust-500);
+  --urgency-critical-foreground: oklch(1 0 0);
+  --urgency-high: var(--ember-600);
+  --urgency-high-foreground: oklch(1 0 0);
+  --urgency-medium: var(--ember-500);
+  --urgency-medium-foreground: var(--ash-900);
+  --urgency-low: var(--glacier-500);
+  --urgency-low-foreground: oklch(1 0 0);
+
+  /* --- StatusPill / Badge tone pairs (light) — palette tints ---
+     Consumed by StatusPill (workflow status, table-cell weight) and
+     Badge (classification — party role, trust type, jurisdiction). Two
+     axes share this surface:
+       Semantic: neutral · info · warning · success · danger
+       Categorical: purple · indigo · emerald · sky · teal · orange · rose · slate
+     One labels map per domain enum drives both atoms. Glyph (icon or
+     dot-shape) is non-optional per state — color reinforces, glyph
+     identifies. See apps/web/components/ui/CLAUDE.md Atoms section. */
+  --status-neutral: var(--ash-100);
+  --status-neutral-foreground: var(--ash-700);
+  --status-info: var(--glacier-100);
+  --status-info-foreground: var(--glacier-700);
+  --status-warning: var(--ember-100);
+  --status-warning-foreground: var(--ember-800);
+  --status-success: var(--moss-100);
+  --status-success-foreground: var(--moss-700);
+  --status-danger: var(--rust-100);
+  --status-danger-foreground: var(--rust-700);
+  --status-purple: var(--iris-100);
+  --status-purple-foreground: var(--iris-700);
+  --status-indigo: var(--heather-100);
+  --status-indigo-foreground: var(--heather-700);
+  --status-emerald: var(--moss-100);
+  --status-emerald-foreground: var(--moss-700);
+  --status-sky: var(--sky-100);
+  --status-sky-foreground: var(--sky-700);
+  --status-teal: var(--tide-100);
+  --status-teal-foreground: var(--tide-700);
+  --status-orange: var(--maple-100);
+  --status-orange-foreground: var(--maple-700);
+  --status-rose: var(--coral-100);
+  --status-rose-foreground: var(--coral-700);
+  --status-slate: var(--ash-100);
+  --status-slate-foreground: var(--ash-700);
+
+  /* --- StatusDot palette (light) ---
+     Consumed by StatusDot (workflow status, dense surfaces) and inline
+     row dots (pipeline list, activity panel, risk distribution chart).
+     Aliased at the 400 step — softer than the saturated 500 chart-series
+     step but still readable against white row chrome next to soft-tinted
+     StatusPill chips. See apps/web/components/ui/CLAUDE.md Atoms. */
+  --dot-red: var(--rust-400);
+  --dot-green: var(--moss-400);
+  --dot-amber: var(--ember-400);
+  --dot-emerald: var(--moss-400);
+  --dot-blue: var(--sky-400);
+  --dot-sky: var(--sky-300);
+  --dot-purple: var(--iris-400);
+  --dot-indigo: var(--heather-400);
+  --dot-orange: var(--maple-400);
+  --dot-teal: var(--tide-400);
+  --dot-gray: var(--ash-400);
+
+  /* --- Form fields ---
+   * Token surface for the Field shell + Input/Textarea/Select. Most tokens
+   * resolve to existing semantic aliases so dark mode is automatic; the one
+   * exception is --field-placeholder, which pins to a specific Ash step so
+   * placeholder text passes WCAG AA against --field-bg. (--ash-500 — the
+   * existing --muted-foreground step — sits at ~4.06:1 against white card,
+   * which fails AA for normal text. Bumping to --ash-550 takes it to ~4.97:1.)
+   *
+   * --field-radius is per-field, separate from --radius so a future tighter
+   * radius on inputs can be tuned without touching cards/buttons.
+   * --field-height-* are the two density rungs that the Field shell selects
+   * between via the [data-density] attribute on the surface root.
+   */
+  --field-bg: var(--card);
+  --field-bg-readonly: var(--muted);
+  --field-bg-disabled: var(--muted);
+  --field-border: var(--input);
+  --field-border-hover: var(--border-strong);
+  --field-border-focus: var(--ring);
+  --field-border-invalid: var(--destructive);
+  --field-ring: var(--ring);
+  --field-ring-invalid: var(--destructive);
+  --field-text: var(--foreground);
+  --field-text-disabled: var(--muted-foreground);
+  --field-placeholder: var(--ash-550);
+  --field-label: var(--foreground-secondary);
+  --field-description: var(--muted-foreground);
+  --field-error: var(--destructive);
+  --field-icon: var(--muted-foreground);
+  --field-radius: var(--radius-md);
+  --field-height-compact: 2.25rem; /* 36px — Command Center */
+  --field-height-comfortable: 3rem; /* 48px — Portal (large) */
+
+  /* --- Spacing scale (value-encoded) ---
+   *
+   * Numeric scale where the token name is the value × 4 (Polaris/Atlassian
+   * convention): --space-400 = 16px. Scale is intentionally sparse —
+   * 700/900/1100/1300/1400/1500 are skipped because fewer choices ages
+   * better than completeness.
+   *
+   * All in rem so they scale with the user's font-size preference. The
+   * 1px hairline is the only px exception.
+   *
+   * Use directly via var() or via Tailwind's arbitrary value syntax
+   * (gap-[var(--space-400)]). The semantic aliases below are how
+   * components reference these — change the alias once and every
+   * card/section/cell follows.
+   */
+  --space-0: 0;
+  --space-25: 1px; /* hairline */
+  --space-50: 0.125rem; /* 2px — icon nudge */
+  --space-100: 0.25rem; /* 4px — icon-to-label */
+  --space-150: 0.375rem; /* 6px — tight inline meta */
+  --space-200: 0.5rem; /* 8px — compact list, sibling chips */
+  --space-300: 0.75rem; /* 12px — form field internal padding */
+  --space-400: 1rem; /* 16px — form stack, table cell, card body */
+  --space-500: 1.25rem; /* 20px — mid section gap */
+  --space-600: 1.5rem; /* 24px — card inset, section gap inside card */
+  --space-800: 2rem; /* 32px — between page sections */
+  --space-1000: 2.5rem; /* 40px — major dense breaks */
+  --space-1200: 3rem; /* 48px — page section break */
+  --space-1600: 4rem; /* 64px — page margin (lg) */
+  --space-2400: 6rem; /* 96px — page margin (xl) */
+  --space-3200: 8rem; /* 128px — hero / marketing */
+
+  /* --- Spacing aliases (semantic) ---
+   *
+   * Every alias references a physical token. Density modes override
+   * aliases, not physicals — so [data-density="compact"] can shrink
+   * --space-table-cell-y without touching --space-200, and every consumer
+   * follows.
+   */
+  --space-card-padding: var(--space-600); /* 24px */
+  --space-card-gap: var(--space-400); /* 16px */
+  --space-section-gap: var(--space-800); /* 32px */
+  --space-page-section-gap: var(--space-1200); /* 48px */
+  --space-form-field-gap: var(--space-400); /* 16px */
+  --space-table-cell-x: var(--space-400); /* 16px */
+  --space-table-cell-y: var(--space-200); /* 8px */
+  --space-icon-text-gap: var(--space-200); /* 8px */
+  --space-input-padding-x: var(--space-300); /* 12px */
+  --space-button-padding-x: var(--space-400); /* 16px */
+  --space-page-margin: var(--space-1200); /* 48px @ md+ */
+
+  /* --- Interactive minimums ---
+   *
+   * Touch-target floor for any focusable / clickable element. Independent
+   * of [data-density] — compact density may shrink visual gaps and field
+   * padding, but interactive minimums never drop below this. Picks 44px
+   * (Apple HIG) over WCAG 2.2's 24px floor or Material's 48px because
+   * Sava ships on iPad and desktop where 44px is the sensible compromise.
+   */
+  --touch-target-min: 2.75rem; /* 44px */
+
+  /* --- Motion --- */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dark {
+  /*
+   * Dark mode references the same palette as light. Backgrounds keep a
+   * trace of Cedar chroma so the dark surface still reads as Sava chrome,
+   * but borders/foreground/inputs use Ash (chroma 0) so structural lines
+   * stay quiet. Primary lifts to Glacier 300 so it has presence against
+   * the dark canvas.
+   */
+  --background: var(--tundra-800);
+  --foreground: var(--ash-100);
+  --foreground-secondary: var(--ash-200);
+  --card: var(--tundra-700);
+  --card-foreground: var(--ash-100);
+  --surface: var(--tundra-700);
+  --surface-quiet: var(--tundra-750);
+  --surface-sunken: var(--tundra-800);
+  --border-subtle: var(--ash-800);
+  --border-strong: var(--ash-600);
+  --popover: var(--tundra-700);
+  --popover-foreground: var(--ash-100);
+  --primary: var(--cedar-400);
+  --primary-foreground: var(--cedar-950);
+  --secondary: var(--tundra-650);
+  --secondary-foreground: var(--ash-100);
+  --muted: var(--tundra-700);
+  --muted-foreground: var(--ash-400);
+  --accent: var(--tundra-600);
+  --accent-foreground: var(--ash-100);
+  --destructive: var(--rust-400);
+  --destructive-foreground: oklch(1 0 0);
+  --border: var(--ash-700);
+  --input: var(--ash-700);
+  --ring: var(--cedar-400);
+  --brand: var(--cedar-400);
+  --brand-foreground: oklch(1 0 0);
+  --gain: var(--moss-400);
+  --loss: var(--rust-400);
+  --chart-1: var(--cedar-400);
+  --chart-2: var(--moss-400);
+  --chart-3: var(--ember-400);
+  --chart-4: var(--rust-400);
+  --chart-5: var(--glacier-400);
+  --chart-6: var(--iris-400);
+  --chart-7: var(--maple-400);
+  --chart-8: var(--tide-400);
+  --chart-9: var(--heather-400);
+  --chart-10: var(--coral-400);
+  --sidebar: var(--tundra-850);
+  --sidebar-foreground: var(--ash-100);
+  --sidebar-primary: var(--cedar-400);
+  --sidebar-primary-foreground: var(--cedar-950);
+  --sidebar-accent: var(--tundra-600);
+  --sidebar-accent-foreground: var(--ash-100);
+  --sidebar-border: var(--ash-700);
+  --sidebar-ring: var(--cedar-400);
+
+  --shadow-2xs: 0 1px 3px 0px oklch(0 0 0 / 0.05);
+  --shadow-xs: 0 1px 3px 0px oklch(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
+  --shadow: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
+  --shadow-md: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 2px 4px -1px oklch(0 0 0 / 0.1);
+  --shadow-lg: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 4px 6px -1px oklch(0 0 0 / 0.1);
+  --shadow-xl: 0 1px 3px 0px oklch(0 0 0 / 0.1), 0 8px 10px -1px oklch(0 0 0 / 0.1);
+  --shadow-2xl: 0 1px 3px 0px oklch(0 0 0 / 0.25);
+
+  --success: var(--moss-400);
+  --success-foreground: var(--moss-950);
+  --warning: var(--ember-400);
+  --warning-foreground: var(--ash-900);
+  --info: var(--glacier-400);
+  --info-foreground: var(--glacier-950);
+
+  /* --- Urgency colors (dark) — see light-mode block for ownership --- */
+  --urgency-critical: var(--rust-400);
+  --urgency-critical-foreground: oklch(1 0 0);
+  --urgency-high: var(--ember-700);
+  --urgency-high-foreground: oklch(1 0 0);
+  --urgency-medium: var(--ember-400);
+  --urgency-medium-foreground: var(--ash-900);
+  --urgency-low: var(--glacier-400);
+  --urgency-low-foreground: oklch(1 0 0);
+
+  /* --- StatusPill / Badge tone pairs (dark) — see light-mode block --- */
+  --status-neutral: var(--ash-800);
+  --status-neutral-foreground: var(--ash-300);
+  --status-info: var(--glacier-900);
+  --status-info-foreground: var(--glacier-300);
+  --status-warning: var(--ember-900);
+  --status-warning-foreground: var(--ember-300);
+  --status-success: var(--moss-900);
+  --status-success-foreground: var(--moss-300);
+  --status-danger: var(--rust-900);
+  --status-danger-foreground: var(--rust-300);
+  --status-purple: var(--iris-900);
+  --status-purple-foreground: var(--iris-300);
+  --status-indigo: var(--heather-900);
+  --status-indigo-foreground: var(--heather-300);
+  --status-emerald: var(--moss-900);
+  --status-emerald-foreground: var(--moss-300);
+  --status-sky: var(--sky-900);
+  --status-sky-foreground: var(--sky-300);
+  --status-teal: var(--tide-900);
+  --status-teal-foreground: var(--tide-300);
+  --status-orange: var(--maple-900);
+  --status-orange-foreground: var(--maple-300);
+  --status-rose: var(--coral-900);
+  --status-rose-foreground: var(--coral-300);
+  --status-slate: var(--ash-800);
+  --status-slate-foreground: var(--ash-300);
+
+  /* --- StatusDot palette (dark) — see light-mode block for ownership ---
+     Same alias structure as light; dark mode picks the 300 step (one
+     up from light's 400) so dots lift off the darker canvas. */
+  --dot-red: var(--rust-300);
+  --dot-green: var(--moss-300);
+  --dot-amber: var(--ember-300);
+  --dot-emerald: var(--moss-300);
+  --dot-blue: var(--sky-300);
+  --dot-sky: var(--sky-200);
+  --dot-purple: var(--iris-300);
+  --dot-indigo: var(--heather-300);
+  --dot-orange: var(--maple-300);
+  --dot-teal: var(--tide-300);
+  --dot-gray: var(--ash-300);
+
+  /* --- Form fields (dark) ---
+   * Only --field-placeholder needs a dark override; the rest of the field
+   * tokens resolve to semantic aliases that already swap in dark mode.
+   * --ash-400 against --tundra-700 (dark card) ≈ 6.6:1 — clears AA. */
+  --field-placeholder: var(--ash-400);
+
+  /* --- Motion --- */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
