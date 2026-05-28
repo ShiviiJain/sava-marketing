@@ -99,7 +99,7 @@ function Commitments() {
           index="02"
           term="Permanence"
           body="A trust company built to outlast its founders. The records, the relationships, the institution, all designed to be inherited."
-          src="/local/tenet-permanence.jpg"
+          src="/local/tenet-permanence-v2.jpg"
           align="right"
         />
         <Tenet
