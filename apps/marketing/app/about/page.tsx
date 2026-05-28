@@ -119,20 +119,6 @@ export default function AboutPage() {
         </article>
       </section>
 
-      <section className="bg-parchment-100 py-16">
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          <p className="font-normal font-serif text-lg text-cedar-900 leading-snug tracking-tight sm:text-xl">
-            Get in touch at{" "}
-            <a
-              href="mailto:hello@savahq.com"
-              className="italic underline decoration-cedar-900/30 underline-offset-4 hover:decoration-cedar-900"
-            >
-              hello@savahq.com
-            </a>
-            .
-          </p>
-        </div>
-      </section>
     </main>
   );
 }
