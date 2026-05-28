@@ -52,21 +52,21 @@ export default function AboutPage() {
             <p>
               The trust industry has been quietly broken for a long time. Statements
               arrive late or not at all. Tax documents land months after they're
-              due. Routine requests — a distribution, a beneficiary update, a
-              question about an investment line — sit in inboxes for weeks before
-              anyone answers them. Families who set up their trust expecting
-              quiet stewardship instead inherit a slow-motion administrative
-              burden.
+              due. Routine requests, like a distribution, a beneficiary update,
+              or a question about an investment line, sit in inboxes for weeks
+              before anyone answers them. Families who set up their trust
+              expecting quiet stewardship instead inherit a slow-motion
+              administrative burden.
             </p>
             <p>
               We spoke to dozens of families, attorneys, and advisors before we
               wrote a line of code. The pattern was consistent. The people on
-              the ground — drafting documents, advising clients, reading
-              statements — were doing thoughtful work. The institutions sitting
+              the ground, drafting documents, advising clients, reading
+              statements, were doing thoughtful work. The institutions sitting
               between them were not. Bank trust departments treated trusts as a
               line item. Old-line trust companies treated software as something
               someone else would do. Nobody owned the operational experience
-              end-to-end.
+              end to end.
             </p>
           </div>
 
@@ -81,7 +81,7 @@ export default function AboutPage() {
               supports it. Trust officers, accountants, and engineers sit on the
               same team. The software they use is the software we wrote. Every
               statement, every tax document, every distribution moves through a
-              single workflow we control end-to-end.
+              single workflow we control end to end.
             </p>
             <p>
               Our job is to make trust administration feel the way it always
@@ -92,8 +92,8 @@ export default function AboutPage() {
               without re-litigating their relationship with the family.
             </p>
             <p>
-              We chose Nevada deliberately. The legal framework — directed
-              trusts, dynasty terms, strong asset protection — was built for
+              We chose Nevada deliberately. The legal framework, with directed
+              trusts, dynasty terms, and strong asset protection, was built for
               what modern families need. We chose to charter from day one
               because the alternative is to be a technology company writing
               checks to old institutions. The trust company we wished had
@@ -109,7 +109,7 @@ export default function AboutPage() {
             <p>
               We don't sell investment products. We don't take a cut of the
               assets we administer. We don't blur the line between trustee and
-              investment advisor — directed trust structures keep the two
+              investment advisor. Directed trust structures keep the two
               cleanly separated, and we honor that separation rather than
               quietly absorb it. And if a family ever decides they'd rather
               work with someone else, we make leaving easy. Trusts belong to
