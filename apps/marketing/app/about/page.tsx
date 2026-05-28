@@ -48,7 +48,7 @@ export default function AboutPage() {
 
       <section className="bg-parchment-50 py-20 sm:py-28">
         <article className="mx-auto max-w-2xl px-6 text-cedar-900">
-          <div className="space-y-8 text-lg leading-[1.7]">
+          <div className="space-y-8 text-justify text-lg leading-[1.7]">
             <p>
               The trust industry has been quietly broken for a long time. Statements
               arrive late or not at all. Tax documents land months after they're
@@ -74,7 +74,7 @@ export default function AboutPage() {
             What we're <em className="font-normal italic">building.</em>
           </h2>
 
-          <div className="mt-8 space-y-8 text-lg leading-[1.7]">
+          <div className="mt-8 space-y-8 text-justify text-lg leading-[1.7]">
             <p>
               Sava is a Nevada-chartered trust company that owns both halves of
               the problem: the fiduciary work and the system of record that
@@ -105,7 +105,7 @@ export default function AboutPage() {
             What we <em className="font-normal italic">won't do.</em>
           </h2>
 
-          <div className="mt-8 space-y-8 text-lg leading-[1.7]">
+          <div className="mt-8 space-y-8 text-justify text-lg leading-[1.7]">
             <p>
               We don't sell investment products. We don't take a cut of the
               assets we administer. We don't blur the line between trustee and
