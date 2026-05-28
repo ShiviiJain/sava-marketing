@@ -16,7 +16,7 @@ const PRIMARY_LINKS = [
 // Routes whose hero uses `-mt-20` to bleed the cedar background
 // behind the nav — only these can host a transparent header without
 // the light text falling on white body bg.
-const CEDAR_HERO_ROUTES = new Set(["/", "/attorneys"]);
+const CEDAR_HERO_ROUTES = new Set(["/", "/attorneys", "/families", "/advisors"]);
 
 // Nav flips at this scroll distance. 32px feels like "past the hero
 // top edge" without flickering at the very top.

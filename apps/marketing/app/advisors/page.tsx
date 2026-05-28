@@ -50,7 +50,8 @@ export default function AdvisorsPage() {
           How we work with <em className="font-normal italic">advisors.</em>
         </>
       }
-      heroImage={{ src: "/local/advisors-meeting.jpeg" }}
+      heroImage={{ src: "/local/advisors-hero.jpg" }}
+      heroBridged
     />
   );
 }

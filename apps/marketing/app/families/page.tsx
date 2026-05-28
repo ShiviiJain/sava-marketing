@@ -50,8 +50,9 @@ export default function FamiliesPage() {
           How we serve <em className="font-normal italic">families.</em>
         </>
       }
-      heroImage={{ src: "/local/family-moving.jpeg" }}
+      heroImage={{ src: "/local/families-hero.jpg" }}
       leaf="33"
+      heroBridged
     />
   );
 }
