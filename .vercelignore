@@ -1,0 +1,13 @@
+# Vercel only needs source + lockfile. Skip large local-only assets
+# (photography stays in S3) and any build/dev artifacts.
+
+# Local marketing photography is served from S3 in production via the
+# `/local/*` rewrite in next.config.mjs — uploading these to Vercel would
+# bloat each deploy by ~470 MB.
+apps/marketing/public/local
+
+node_modules
+.next
+.turbo
+.git
+.env*.local
