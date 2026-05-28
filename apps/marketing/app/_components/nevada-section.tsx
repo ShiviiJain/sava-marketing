@@ -23,11 +23,17 @@ const FACTS = [
 export function NevadaSection() {
   return (
     <section className="relative overflow-hidden bg-cedar-700 py-24 sm:py-32">
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
-        <div className="grid gap-12 md:grid-cols-[5fr_6fr] md:items-center md:gap-16 lg:gap-20">
+      {/* Hero row spans the full viewport so the photo can sit flush
+          against the right edge. Text column pads itself out to align
+          with the normal max-w-7xl left margin. */}
+      <div className="grid items-center gap-12 md:grid-cols-[1fr_1fr] md:gap-0">
+        <div className="px-6 md:ps-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] md:pe-10 lg:pe-16">
           <TextPanel />
-          <PhotoPanel />
         </div>
+        <PhotoPanel />
+      </div>
+
+      <div className="relative z-10 mx-auto mt-20 max-w-7xl px-6">
         <FactsRow />
       </div>
     </section>
@@ -36,7 +42,9 @@ export function NevadaSection() {
 
 function PhotoPanel() {
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-parchment-200">
+    // No right padding on the parent grid cell + rounded-s only → photo
+    // is flush against the viewport's right edge, "emerging" from there.
+    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-s-2xl bg-parchment-200">
       <Image
         src="/local/why-nevada.jpg"
         alt=""

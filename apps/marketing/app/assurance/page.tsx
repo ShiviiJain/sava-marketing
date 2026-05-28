@@ -29,30 +29,6 @@ const PROTECTIONS: ProtectionBlock[] = [
   },
 ];
 
-function MaskedIcon({ src }: { src: string }) {
-  const maskUrl = `url(${src})`;
-  return (
-    <span
-      aria-hidden="true"
-      className="inline-flex size-10 items-center justify-center rounded-sm bg-yarrow-500/90"
-    >
-      <span
-        className="block size-5 bg-cedar-900"
-        style={{
-          maskImage: maskUrl,
-          maskRepeat: "no-repeat",
-          maskSize: "contain",
-          maskPosition: "center",
-          WebkitMaskImage: maskUrl,
-          WebkitMaskRepeat: "no-repeat",
-          WebkitMaskSize: "contain",
-          WebkitMaskPosition: "center",
-        }}
-      />
-    </span>
-  );
-}
-
 export const metadata: Metadata = {
   title: "Sava Assurance Program",
   description:
@@ -110,69 +86,28 @@ function Commitments() {
             <em className="font-normal italic">administer.</em>
           </h2>
         </header>
-        <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">
+        <div className="mt-14 space-y-16 md:mt-20 md:space-y-20">
           <Tenet
             index="01"
             term="Families"
             body="The trust serves the family. Every act of administration is measured against the people it's meant to protect, including the ones who aren't in the room yet."
             src="/local/tenet-families.jpg"
-            iconSrc="/local/icons/sprout.svg"
             align="left"
           />
-          <div className="flex justify-end">
-            <div className="relative aspect-[3/1] w-3/4 overflow-hidden rounded-sm shadow-2xl shadow-cedar-900/30 ring-1 ring-cedar-900/5">
-              <Image
-                src="/local/families-matcha-band.jpg"
-                alt=""
-                fill
-                sizes="(min-width: 768px) 60vw, 90vw"
-                quality={95}
-                className="object-cover object-center"
-              />
-            </div>
-          </div>
           <Tenet
             index="02"
             term="Permanence"
             body="A trust company built to outlast its founders. The records, the relationships, the institution, all designed to be inherited."
             src="/local/tenet-permanence.jpg"
-            iconSrc="/local/icons/landmark.svg"
             align="right"
-            leaf="06"
           />
-          <div className="flex justify-start">
-            <div className="relative aspect-[3/1] w-3/4 overflow-hidden rounded-sm shadow-2xl shadow-cedar-900/30 ring-1 ring-cedar-900/5">
-              <Image
-                src="/local/permanence-band.jpg"
-                alt=""
-                fill
-                sizes="(min-width: 768px) 60vw, 90vw"
-                quality={95}
-                className="object-cover object-center"
-              />
-            </div>
-          </div>
           <Tenet
             index="03"
             term="Stewardship"
             body="Care is the work. We administer with the rigor and attentiveness the trusts in our care deserve, in writing and in practice."
             src="/local/tenet-stewardship.jpg"
-            iconSrc="/local/icons/compass.svg"
             align="left"
-            leaf="01"
           />
-          <div className="flex justify-end">
-            <div className="relative aspect-[3/1] w-3/4 overflow-hidden rounded-sm shadow-2xl shadow-cedar-900/30 ring-1 ring-cedar-900/5">
-              <Image
-                src="/local/stewardship-band.jpg"
-                alt=""
-                fill
-                sizes="(min-width: 768px) 60vw, 90vw"
-                quality={95}
-                className="object-cover object-center"
-              />
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -216,158 +151,35 @@ function Tenet({
   term,
   body,
   src,
-  accentSrc,
-  iconSrc,
   align,
-  leaf = "15",
-  aspect = "portrait",
 }: {
   index: string;
   term: string;
   body: string;
-  src?: string;
-  accentSrc?: string;
-  iconSrc?: string;
+  src: string;
   align: "left" | "right";
-  /** Leaf number from /local/leaves/test-NN.png — defaults to 15 (Fig). */
-  leaf?: string;
-  /** Photo card aspect — portrait (4/5) or landscape (3/2). */
-  aspect?: "portrait" | "landscape";
 }) {
   const imageOrder = align === "right" ? "md:order-2" : "md:order-1";
   const textOrder = align === "right" ? "md:order-1" : "md:order-2";
-  const leafUrl = `url(/local/leaves/test-${leaf}.png)`;
 
-  // Simple layout (no accent image): bigger primary photo on one side,
-  // leaf motif sized large behind the text on the other. When `src` is
-  // omitted, the photo column is skipped and the text panel runs full
-  // width with the leaf still anchored to its side.
-  if (!accentSrc) {
-    return (
-      <article
-        className={cn(
-          "grid items-center gap-10 md:gap-16",
-          src && "md:grid-cols-2"
-        )}
-      >
-        {src && (
-          <div
-            className={cn(
-              "relative overflow-hidden rounded-sm bg-parchment-200 shadow-xl shadow-cedar-900/20",
-              aspect === "landscape" ? "aspect-[3/2]" : "aspect-[4/5]",
-              imageOrder
-            )}
-          >
-            <Image
-              src={src}
-              alt=""
-              fill
-              sizes="(min-width: 768px) 28rem, 90vw"
-              quality={95}
-              className="object-cover object-center"
-            />
-            {iconSrc && (
-              <span className="absolute end-4 bottom-4 z-10">
-                <MaskedIcon src={iconSrc} />
-              </span>
-            )}
-          </div>
-        )}
-        <div
-          className={cn(
-            "relative isolate flex flex-col justify-center self-stretch py-12",
-            textOrder
-          )}
-        >
-          <div
-            aria-hidden="true"
-            className="-z-10 pointer-events-none absolute inset-0"
-            style={{
-              backgroundColor: "oklch(0.334 0.041 210 / 0.18)",
-              maskImage: leafUrl,
-              maskRepeat: "no-repeat",
-              maskSize: "contain",
-              maskPosition: align === "right" ? "right center" : "left center",
-              WebkitMaskImage: leafUrl,
-              WebkitMaskRepeat: "no-repeat",
-              WebkitMaskSize: "contain",
-              WebkitMaskPosition: align === "right" ? "right center" : "left center",
-            }}
-          />
-          <div className="relative">
-            <Eyebrow as="span" uppercase={false}>
-              {index}
-            </Eyebrow>
-            <h3 className="mt-3 font-normal font-serif text-2xl text-cedar-900 leading-tight md:text-3xl">
-              {term}
-            </h3>
-            <p className="mt-4 text-base text-cedar-900/70 leading-relaxed md:text-lg">{body}</p>
-          </div>
-        </div>
-      </article>
-    );
-  }
-
-  // Layered layout (used when accentSrc is provided): primary photo plus
-  // smaller accent photo behind it, with the leaf as a centered backdrop.
   return (
     <article className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
-      <div className={cn("relative aspect-[7/6]", imageOrder)}>
-        <div
-          aria-hidden="true"
-          className={cn(
-            "pointer-events-none absolute aspect-square h-[80%] bg-cedar-900/20",
-            align === "right" ? "top-0 start-0" : "top-0 end-0"
-          )}
-          style={{
-            maskImage: "url(/local/leaves/test-15.png)",
-            maskRepeat: "no-repeat",
-            maskSize: "contain",
-            maskPosition: "center",
-            WebkitMaskImage: "url(/local/leaves/test-15.png)",
-            WebkitMaskRepeat: "no-repeat",
-            WebkitMaskSize: "contain",
-            WebkitMaskPosition: "center",
-          }}
-        />
-        {src && (
-          <div
-            className={cn(
-              "absolute top-0 z-20 aspect-[4/5] h-[85%] overflow-hidden rounded-sm bg-parchment-200 shadow-xl shadow-cedar-900/20",
-              align === "right" ? "end-0" : "start-0"
-            )}
-          >
-            <Image
-              src={src}
-              alt=""
-              fill
-              sizes="(min-width: 768px) 18rem, 50vw"
-              className="object-cover object-center"
-            />
-            {iconSrc && (
-              <span className="absolute end-4 bottom-4 z-10">
-                <MaskedIcon src={iconSrc} />
-              </span>
-            )}
-          </div>
+      <div
+        className={cn(
+          "relative aspect-[4/5] overflow-hidden rounded-sm bg-parchment-200",
+          imageOrder
         )}
-        <div
-          aria-hidden="true"
-          className={cn(
-            "absolute bottom-0 z-10 aspect-[4/5] h-[85%] overflow-hidden rounded-sm bg-parchment-200 shadow-lg shadow-cedar-900/15",
-            align === "right" ? "start-0" : "end-0"
-          )}
-        >
-          <Image
-            src={accentSrc}
-            alt=""
-            fill
-            sizes="(min-width: 768px) 18rem, 50vw"
-            className="object-cover object-center"
-          />
-        </div>
+      >
+        <Image
+          src={src}
+          alt=""
+          fill
+          sizes="(min-width: 768px) 28rem, 90vw"
+          quality={95}
+          className="object-cover object-center"
+        />
       </div>
-      <div className={textOrder}>
+      <div className={cn("flex flex-col justify-center", textOrder)}>
         <Eyebrow as="span" uppercase={false}>
           {index}
         </Eyebrow>
