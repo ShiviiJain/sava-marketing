@@ -43,7 +43,7 @@ export function ServicesSection({ leaf }: ServicesSectionProps = {}) {
       {leaf && <ServicesLeaf position={leaf} />}
       <div className={cn("mx-auto max-w-6xl px-6", leaf && "relative z-10")}>
         <header className="max-w-3xl">
-          <h2 className="font-normal font-serif text-4xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-5xl md:text-6xl">
+          <h2 className="font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
             What we <em className="font-normal italic">administer.</em>
           </h2>
           <p className="mt-8 max-w-xl text-cedar-900/70 text-lg leading-[1.55]">

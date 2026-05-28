@@ -75,7 +75,7 @@ export function AudiencePage({
 
       <section className="bg-parchment-50 py-24 sm:py-32">
         <div className="mx-auto max-w-5xl px-6">
-          <h2 className="max-w-2xl font-normal font-serif text-3xl text-cedar-900 leading-[1.1] tracking-[-0.02em] sm:text-4xl md:text-5xl">
+          <h2 className="max-w-2xl font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
             {featuresHeading}
           </h2>
           <dl className="mt-16 grid gap-x-12 gap-y-12 sm:grid-cols-2 sm:gap-y-14">
@@ -101,7 +101,7 @@ export function AudiencePage({
       {closingHeading && (
         <section className="bg-cedar-700 py-24 sm:py-32">
           <div className="mx-auto max-w-3xl px-6 text-center">
-            <h2 className="font-normal font-serif text-3xl text-parchment-50 leading-[1.1] tracking-[-0.02em] sm:text-4xl md:text-5xl">
+            <h2 className="font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
               {closingHeading}
             </h2>
             {closingBody && (

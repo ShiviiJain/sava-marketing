@@ -6,7 +6,7 @@ export function ClosingCta() {
   return (
     <section className="bg-cedar-700 py-16 sm:py-20">
       <div className="mx-auto max-w-4xl px-6 text-center">
-        <h2 className="whitespace-nowrap font-normal font-serif text-4xl text-parchment-50 leading-[1] tracking-[-0.03em] sm:text-5xl md:text-6xl">
+        <h2 className="whitespace-nowrap font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
           Talk to an expert.
         </h2>
         <p className="mx-auto mt-6 max-w-xl text-lg text-parchment-100/75 leading-[1.55]">

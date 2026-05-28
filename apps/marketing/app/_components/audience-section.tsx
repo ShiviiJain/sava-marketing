@@ -41,7 +41,7 @@ export function AudienceSection() {
     <section className="bg-parchment-50 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <header className="max-w-3xl">
-          <h2 className="font-normal font-serif text-4xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-5xl md:text-6xl">
+          <h2 className="font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
             Built for the entire trust <em className="font-normal italic">ecosystem.</em>
           </h2>
           <p className="mt-8 max-w-2xl text-cedar-900/70 text-lg leading-[1.55]">

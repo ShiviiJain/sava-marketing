@@ -78,37 +78,37 @@ function Hero() {
 
 function Commitments() {
   return (
-    <section className="bg-parchment-50 py-24 sm:py-32">
+    <section className="overflow-hidden bg-parchment-50 py-24 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
         <header className="max-w-4xl">
-          <h2 className="text-balance font-normal font-serif text-4xl text-cedar-900 leading-[1.1] tracking-[-0.02em] sm:text-5xl">
+          <h2 className="text-balance font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
             The commitments that shape every trust we{" "}
             <em className="font-normal italic">administer.</em>
           </h2>
         </header>
-        <div className="mt-14 space-y-16 md:mt-20 md:space-y-20">
-          <Tenet
-            index="01"
-            term="Families"
-            body="The trust serves the family. Every act of administration is measured against the people it's meant to protect, including the ones who aren't in the room yet."
-            src="/local/tenet-families.jpg"
-            align="left"
-          />
-          <Tenet
-            index="02"
-            term="Permanence"
-            body="A trust company built to outlast its founders. The records, the relationships, the institution, all designed to be inherited."
-            src="/local/tenet-permanence.jpg"
-            align="right"
-          />
-          <Tenet
-            index="03"
-            term="Stewardship"
-            body="Care is the work. We administer with the rigor and attentiveness the trusts in our care deserve, in writing and in practice."
-            src="/local/tenet-stewardship.jpg"
-            align="left"
-          />
-        </div>
+      </div>
+      <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">
+        <Tenet
+          index="01"
+          term="Families"
+          body="The trust serves the family. Every act of administration is measured against the people it's meant to protect, including the ones who aren't in the room yet."
+          src="/local/tenet-families.jpg"
+          align="left"
+        />
+        <Tenet
+          index="02"
+          term="Permanence"
+          body="A trust company built to outlast its founders. The records, the relationships, the institution, all designed to be inherited."
+          src="/local/tenet-permanence.jpg"
+          align="right"
+        />
+        <Tenet
+          index="03"
+          term="Stewardship"
+          body="Care is the work. We administer with the rigor and attentiveness the trusts in our care deserve, in writing and in practice."
+          src="/local/tenet-stewardship.jpg"
+          align="left"
+        />
       </div>
     </section>
   );
@@ -159,35 +159,49 @@ function Tenet({
   src: string;
   align: "left" | "right";
 }) {
-  const imageOrder = align === "right" ? "md:order-2" : "md:order-1";
-  const textOrder = align === "right" ? "md:order-1" : "md:order-2";
+  // Photo column bleeds to the viewport edge on its side. Text column
+  // pads itself out so the inner edge of the copy still aligns with the
+  // page's max-w-5xl content margin.
+  const photo = (
+    <div
+      className={cn(
+        "relative aspect-[4/5] w-full overflow-hidden bg-parchment-200",
+        align === "left" ? "md:rounded-e-2xl" : "md:rounded-s-2xl"
+      )}
+    >
+      <Image
+        src={src}
+        alt=""
+        fill
+        sizes="(min-width: 768px) 50vw, 100vw"
+        quality={95}
+        className="object-cover object-center"
+      />
+    </div>
+  );
+  const text = (
+    <div
+      className={cn(
+        "mx-auto flex w-full max-w-xl flex-col justify-center py-10 md:mx-0 md:max-w-none md:py-0",
+        align === "left"
+          ? "px-6 md:ps-12 md:pe-[max(1.5rem,calc((100vw-64rem)/2+1.5rem))] lg:ps-16"
+          : "px-6 md:pe-12 md:ps-[max(1.5rem,calc((100vw-64rem)/2+1.5rem))] lg:pe-16"
+      )}
+    >
+      <Eyebrow as="span" uppercase={false}>
+        {index}
+      </Eyebrow>
+      <h3 className="mt-3 font-normal font-serif text-2xl text-cedar-900 leading-tight md:text-3xl">
+        {term}
+      </h3>
+      <p className="mt-4 text-base text-cedar-900/70 leading-relaxed md:text-lg">{body}</p>
+    </div>
+  );
 
   return (
-    <article className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
-      <div
-        className={cn(
-          "relative aspect-[4/5] overflow-hidden rounded-sm bg-parchment-200",
-          imageOrder
-        )}
-      >
-        <Image
-          src={src}
-          alt=""
-          fill
-          sizes="(min-width: 768px) 28rem, 90vw"
-          quality={95}
-          className="object-cover object-center"
-        />
-      </div>
-      <div className={cn("flex flex-col justify-center", textOrder)}>
-        <Eyebrow as="span" uppercase={false}>
-          {index}
-        </Eyebrow>
-        <h3 className="mt-3 font-normal font-serif text-2xl text-cedar-900 leading-tight md:text-3xl">
-          {term}
-        </h3>
-        <p className="mt-4 text-base text-cedar-900/70 leading-relaxed md:text-lg">{body}</p>
-      </div>
+    <article className="grid items-center gap-10 md:grid-cols-2 md:gap-0">
+      {align === "left" ? photo : text}
+      {align === "left" ? text : photo}
     </article>
   );
 }

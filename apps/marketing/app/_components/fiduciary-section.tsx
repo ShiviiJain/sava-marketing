@@ -26,7 +26,7 @@ export function FiduciarySection() {
       <LeafBackdrop />
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div className="max-w-xl">
-          <h2 className="font-normal font-serif text-4xl text-parchment-50 leading-[1.02] tracking-[-0.02em] sm:text-5xl md:text-5xl lg:text-5xl">
+          <h2 className="font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
             How your trust is <em className="font-normal italic">protected.</em>
           </h2>
           <p className="mt-8 max-w-md text-lg text-parchment-100/85 leading-[1.55]">

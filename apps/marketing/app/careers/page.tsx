@@ -45,7 +45,7 @@ export default function CareersPage() {
       <section className="bg-parchment-50 py-24 sm:py-32">
         <div className="mx-auto max-w-5xl px-6">
           <Eyebrow>Open roles</Eyebrow>
-          <h2 className="mt-6 font-normal font-serif text-4xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+          <h2 className="mt-6 font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
             We're <em className="font-normal italic">hiring.</em>
           </h2>
           <ul className="mt-12 border-cedar-900/15 border-t">
