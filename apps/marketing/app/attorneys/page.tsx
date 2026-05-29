@@ -49,7 +49,7 @@ export default function AttorneysPage() {
         </>
       }
       heroImage={{ src: "/local/attorneys-team.jpg" }}
-      leaf="12"
+      leaf="30"
       heroBridged
     />
   );

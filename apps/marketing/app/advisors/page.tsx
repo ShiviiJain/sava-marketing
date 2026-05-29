@@ -33,7 +33,6 @@ const FEATURES: AudienceFeature[] = [
 export default function AdvisorsPage() {
   return (
     <AudiencePage
-      eyebrow="For advisors"
       headline={
         <>
           <span className="block">Trust services that</span>
@@ -51,6 +50,7 @@ export default function AdvisorsPage() {
         </>
       }
       heroImage={{ src: "/local/advisors-hero.jpg" }}
+      leaf="06"
       heroBridged
     />
   );
