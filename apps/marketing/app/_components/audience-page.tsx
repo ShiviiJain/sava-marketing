@@ -3,6 +3,10 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { asset } from "../_lib/asset";
+import { NevadaSection } from "./nevada-section";
+import { PlatformShowcase, type PlatformShowcaseProps } from "./platform-showcase";
+import { PricingSection } from "./pricing-section";
 import { BrandButton } from "./ui/brand-button";
 import { Eyebrow } from "./ui/eyebrow";
 
@@ -21,8 +25,10 @@ interface AudiencePageProps {
   /** Headline with italic emphasis — usually composed inline by the page. */
   headline: ReactNode;
   lede: string;
-  features: AudienceFeature[];
-  featuresHeading: ReactNode;
+  /** Features grid ("How we serve…"). Omit both to skip the section
+   *  entirely — /families drops it in favor of the platform showcase. */
+  features?: AudienceFeature[];
+  featuresHeading?: ReactNode;
   /** Closing CTA — opt-in. Omit all three to skip the section entirely. */
   contactEmail?: string;
   closingHeading?: ReactNode;
@@ -34,11 +40,21 @@ interface AudiencePageProps {
   /** Leaf number (1–36) from /local/leaves/test-XX.png. Adds a faint
    *  silhouette behind the hero text panel when set. */
   leaf?: string;
+  /** Leaf number for the cream-tone silhouette behind the features
+   *  grid (the "How we serve…" section). Bleeds off the right edge. */
+  featuresLeaf?: string;
   /** Opt-in to the "bridged" hero: photo column is wider, the leaf sits
    *  at the cedar/photo seam overlapping both, and the section bleeds
    *  behind the nav. Pages using this should also be added to
    *  CEDAR_HERO_ROUTES in marketing-nav.tsx so the nav goes transparent. */
   heroBridged?: boolean;
+  /** Platform feature showcase (layered product crops). Rendered between
+   *  the features grid and the Why Nevada / pricing sections. */
+  platform?: PlatformShowcaseProps;
+  /** Render the shared Why Nevada section between features and pricing. */
+  showNevada?: boolean;
+  /** Render the shared Pricing section after features (used by /attorneys + /advisors). */
+  showPricing?: boolean;
 }
 
 /**
@@ -60,7 +76,11 @@ export function AudiencePage({
   heroImage,
   midImage,
   leaf,
+  featuresLeaf,
   heroBridged,
+  platform,
+  showNevada,
+  showPricing,
 }: AudiencePageProps) {
   return (
     <main>
@@ -73,28 +93,42 @@ export function AudiencePage({
         bridged={heroBridged}
       />
 
-      <section className="bg-parchment-50 py-24 sm:py-32">
-        <div className="mx-auto max-w-5xl px-6">
-          <h2 className="max-w-2xl font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
-            {featuresHeading}
-          </h2>
-          <dl className="mt-16 grid gap-x-12 gap-y-12 sm:grid-cols-2 sm:gap-y-14">
-            {features.map((feature, idx) => (
-              <div key={feature.term}>
-                <Eyebrow as="span" uppercase={false}>
-                  {String(idx + 1).padStart(2, "0")}
-                </Eyebrow>
-                <dt className="mt-3 font-normal font-serif text-2xl text-cedar-900 leading-tight">
-                  {feature.term}
-                </dt>
-                <dd className="mt-3 text-base text-cedar-900/70 leading-relaxed">
-                  {feature.description}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
+      {features && features.length > 0 && (
+        <section className="relative isolate overflow-hidden bg-parchment-50 py-24 sm:py-32">
+          {featuresLeaf && <FeaturesLeaf leaf={featuresLeaf} />}
+          <div className="relative z-10 mx-auto max-w-7xl px-6">
+            {/* Inner column is shifted to the right at md+ so the text
+              starts further into the page, complementing the left-edge
+              leaf bleed. Stays centered on mobile so it still reads. */}
+            <div className="md:ms-auto md:max-w-3xl lg:max-w-4xl">
+              <h2 className="font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:whitespace-nowrap lg:text-5xl">
+                {featuresHeading}
+              </h2>
+              <dl className="mt-16 grid gap-x-12 gap-y-12 sm:grid-cols-2 sm:gap-y-14">
+                {features.map((feature, idx) => (
+                  <div key={feature.term}>
+                    <Eyebrow as="span" uppercase={false}>
+                      {String(idx + 1).padStart(2, "0")}
+                    </Eyebrow>
+                    <dt className="mt-3 font-normal font-serif text-2xl text-cedar-900 leading-tight">
+                      {feature.term}
+                    </dt>
+                    <dd className="mt-3 text-base text-cedar-900/70 leading-relaxed">
+                      {feature.description}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {platform && <PlatformShowcase {...platform} />}
+
+      {showNevada && <NevadaSection showFacts />}
+
+      {showPricing && <PricingSection />}
 
       {midImage && <MidImage image={midImage} />}
 
@@ -167,7 +201,15 @@ function Hero({ eyebrow, headline, lede, heroImage, leaf, bridged }: HeroProps) 
   }
 
   if (bridged) {
-    return <BridgedHero eyebrow={eyebrow} headline={headline} lede={lede} heroImage={heroImage} leaf={leaf} />;
+    return (
+      <BridgedHero
+        eyebrow={eyebrow}
+        headline={headline}
+        lede={lede}
+        heroImage={heroImage}
+        leaf={leaf}
+      />
+    );
   }
 
   // 2-col hero with photo on the right and leaf motif behind the text
@@ -217,19 +259,22 @@ function BridgedHero({ eyebrow, headline, lede, heroImage, leaf }: HeroProps) {
   return (
     <section className="relative isolate -mt-20 overflow-hidden bg-cedar-700">
       <div className="grid items-stretch md:grid-cols-[1fr_1fr]">
-        <div className="flex flex-col justify-center px-6 pt-32 pb-16 md:ps-14 md:pe-10 md:pt-40 md:pb-24 lg:ps-24 lg:pe-16 lg:pt-48 lg:pb-32">
-          {eyebrow && <Eyebrow ground="cedar">{eyebrow}</Eyebrow>}
-          <h1
-            className={cn(
-              "font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl",
-              eyebrow && "mt-8"
-            )}
-          >
-            {headline}
-          </h1>
-          <p className="mt-8 max-w-xl text-lg text-parchment-100/85 leading-[1.55] md:text-xl">
-            {lede}
-          </p>
+        <div className="relative flex flex-col justify-center overflow-hidden px-6 pt-32 pb-16 md:ps-14 md:pe-10 md:pt-40 md:pb-24 lg:ps-24 lg:pe-16 lg:pt-48 lg:pb-32">
+          {leaf && <PanelLeaf leaf={leaf} />}
+          <div className="relative z-10">
+            {eyebrow && <Eyebrow ground="cedar">{eyebrow}</Eyebrow>}
+            <h1
+              className={cn(
+                "font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl",
+                eyebrow && "mt-8"
+              )}
+            >
+              {headline}
+            </h1>
+            <p className="mt-8 max-w-xl text-lg text-parchment-100/85 leading-[1.55] md:text-xl">
+              {lede}
+            </p>
+          </div>
         </div>
         <div className="relative min-h-[28rem] w-full overflow-hidden bg-parchment-200 md:min-h-[40rem] lg:min-h-[44rem]">
           <Image
@@ -243,32 +288,30 @@ function BridgedHero({ eyebrow, headline, lede, heroImage, leaf }: HeroProps) {
           />
         </div>
       </div>
-
-      {leaf && <LeafBridge leaf={leaf} />}
     </section>
   );
 }
 
 /**
- * Wider, more prominent leaf overlay anchored at the cedar/photo seam
- * of the bridged hero. Positioned absolutely on the section so it
- * naturally overlaps both columns. Higher opacity than LeafMotif so it
- * reads as an intentional accent rather than a tonal whisper.
+ * Leaf inside the cedar text panel, hugging the right (seam) edge. The
+ * panel's `overflow-hidden` clips it so it stops at the photo rather than
+ * bleeding onto it, and it's one shade lighter than the cedar ground
+ * (cedar-600) so it reads as a tonal whisper, not a contrasting accent.
  */
-function LeafBridge({ leaf }: { leaf: string }) {
-  const maskUrl = `url(/local/leaves/test-${leaf}.png)`;
+function PanelLeaf({ leaf }: { leaf: string }) {
+  const maskUrl = `url(${asset(`leaves/test-${leaf}.png`)})`;
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-y-8 left-[26%] right-[42%] z-10 bg-parchment-50/30 md:inset-y-12"
+      className="-end-[22%] pointer-events-none absolute inset-y-0 z-0 w-[78%] bg-cedar-600"
       style={{
         maskImage: maskUrl,
         maskRepeat: "no-repeat",
-        maskSize: "contain",
+        maskSize: "auto 120%",
         maskPosition: "center",
         WebkitMaskImage: maskUrl,
         WebkitMaskRepeat: "no-repeat",
-        WebkitMaskSize: "contain",
+        WebkitMaskSize: "auto 120%",
         WebkitMaskPosition: "center",
       }}
     />
@@ -292,7 +335,7 @@ function MidImage({ image }: { image: AudienceImage }) {
 }
 
 function LeafMotif({ leaf }: { leaf: string }) {
-  const maskUrl = `url(/local/leaves/test-${leaf}.png)`;
+  const maskUrl = `url(${asset(`leaves/test-${leaf}.png`)})`;
   return (
     <div
       aria-hidden="true"
@@ -306,6 +349,30 @@ function LeafMotif({ leaf }: { leaf: string }) {
         WebkitMaskRepeat: "no-repeat",
         WebkitMaskSize: "auto 120%",
         WebkitMaskPosition: "center top",
+      }}
+    />
+  );
+}
+
+// Cream-tone leaf silhouette bleeding off the LEFT viewport edge so
+// the leaf side alternates with the adjacent sections (Nevada bleeds
+// right, Pricing bleeds left → Features bleeds left → keeps the
+// page rhythm L → R → L → …).
+function FeaturesLeaf({ leaf }: { leaf: string }) {
+  const maskUrl = `url(${asset(`leaves/test-${leaf}.png`)})`;
+  return (
+    <div
+      aria-hidden="true"
+      className="-start-4 pointer-events-none absolute inset-y-0 z-0 w-[60%] bg-parchment-300/75 md:-start-6 md:w-[55%] lg:-start-8 lg:w-[50%]"
+      style={{
+        maskImage: maskUrl,
+        maskRepeat: "no-repeat",
+        maskSize: "auto 100%",
+        maskPosition: "left center",
+        WebkitMaskImage: maskUrl,
+        WebkitMaskRepeat: "no-repeat",
+        WebkitMaskSize: "auto 100%",
+        WebkitMaskPosition: "left center",
       }}
     />
   );

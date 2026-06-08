@@ -1,3 +1,5 @@
+import { asset } from "../_lib/asset";
+
 // Update LEAF_NUMBER when picking a different silhouette from /styles/leaves.
 const LEAF_NUMBER = "25";
 
@@ -55,7 +57,7 @@ export function FiduciarySection() {
 // Section-level leaf backdrop anchored to the right edge — same
 // treatment as Nevada so adjacent cedar sections share a register.
 function LeafBackdrop() {
-  const maskUrl = `url(/local/leaves/test-${LEAF_NUMBER}.png)`;
+  const maskUrl = `url(${asset(`leaves/test-${LEAF_NUMBER}.png`)})`;
   return (
     <div
       aria-hidden="true"

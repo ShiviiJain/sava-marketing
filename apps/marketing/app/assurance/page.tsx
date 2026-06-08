@@ -4,28 +4,34 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import type { ComponentType, SVGProps } from "react";
 import { Eyebrow } from "../_components/ui/eyebrow";
+import { ScrollReveal } from "../_components/ui/scroll-reveal";
+import { asset } from "../_lib/asset";
 
 interface ProtectionBlock {
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
   term: string;
   body: string;
+  src: string;
 }
 
 const PROTECTIONS: ProtectionBlock[] = [
   {
     Icon: Scale,
     term: "Law",
-    body: "A Nevada state-chartered trust company, regulated by the Nevada Financial Institutions Division and bound by fiduciary duty.",
+    body: "A Nevada state-chartered trust company, examined by the Financial Institutions Division and bound by law to put your interest first.",
+    src: asset("assurance-law.webp"),
   },
   {
     Icon: Building2,
     term: "Structure",
-    body: "Trust assets sit with independent custodians, legally segregated from Sava and beyond the reach of creditors.",
+    body: "Your assets sit with independent custodians, legally separate from Sava's balance sheet and beyond the reach of its creditors.",
+    src: asset("assurance-structure.webp"),
   },
   {
     Icon: ShieldCheck,
     term: "Discipline",
-    body: "A minimum capital reserve of $1M from day one, at least half in cash. The floor only moves up.",
+    body: "A capital reserve of at least $1M from day one, half of it in cash. That floor only ever rises.",
+    src: asset("assurance-discipline.webp"),
   },
 ];
 
@@ -40,37 +46,57 @@ export default function AssurancePage() {
   return (
     <main>
       <Hero />
-      <Commitments />
       <ProtectionMechanics />
+      <Commitments />
     </main>
   );
 }
 
 function Hero() {
+  // Bridged hero: parchment text panel on the left with cedar copy, photo
+  // on the right, leaf overlay at the seam. Light ground, so the nav stays
+  // solid (not in CEDAR_HERO_ROUTES).
+  const leafMask = `url(${asset("leaves/test-30.png")})`;
   return (
-    <section className="relative isolate overflow-hidden bg-cedar-700 py-24 sm:py-32">
-      <div
-        aria-hidden="true"
-        className="-z-10 pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage: "url(/local/assurance-hero-bg.jpg)",
-          backgroundSize: "150% auto",
-          backgroundPosition: "0% 20%",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="-z-10 absolute inset-0 bg-gradient-to-r from-cedar-700/85 from-0% via-cedar-700/40 via-40% to-cedar-700/30 to-100%"
-      />
-      <div className="relative z-10 mx-auto max-w-5xl px-6">
-        <h1 className="font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
-          How your trust is <em className="font-normal italic">protected.</em>
-        </h1>
-        <p className="mt-8 max-w-2xl text-lg text-parchment-100/85 leading-[1.55] md:text-xl">
-          Your trust is protected by law, by structure, and by the discipline we hold ourselves to.
-          And if it is ever time to leave, we will not stand in your way.
-        </p>
+    <section className="relative isolate overflow-hidden bg-parchment-50">
+      <div className="grid items-stretch md:grid-cols-2">
+        <div className="relative flex flex-col justify-center overflow-hidden px-6 py-20 md:ps-14 md:pe-10 md:py-28 lg:ps-24 lg:pe-16 lg:py-36">
+          <div
+            aria-hidden="true"
+            className="-end-[22%] pointer-events-none absolute inset-y-0 z-0 w-[78%] bg-parchment-300"
+            style={{
+              maskImage: leafMask,
+              maskRepeat: "no-repeat",
+              maskSize: "auto 120%",
+              maskPosition: "center",
+              WebkitMaskImage: leafMask,
+              WebkitMaskRepeat: "no-repeat",
+              WebkitMaskSize: "auto 120%",
+              WebkitMaskPosition: "center",
+            }}
+          />
+          <div className="relative z-10">
+            <h1 className="font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
+              How your trust is <em className="font-normal italic">protected.</em>
+            </h1>
+            <p className="mt-8 max-w-xl text-cedar-900/70 text-lg leading-[1.55] md:text-xl">
+              Held by law, segregated by structure, and kept by the discipline we hold ourselves to.
+              Your assets sit apart from Sava, and if the day comes to move the trust elsewhere,
+              nothing in the way we work will hold it back.
+            </p>
+          </div>
+        </div>
+        <div className="relative min-h-[24rem] w-full overflow-hidden bg-parchment-200 md:min-h-[34rem] lg:min-h-[40rem]">
+          <Image
+            src={asset("assurance-hero-bg.webp")}
+            alt=""
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            quality={90}
+            className="object-cover object-[68%_center]"
+            priority
+          />
+        </div>
       </div>
     </section>
   );
@@ -81,34 +107,40 @@ function Commitments() {
     <section className="overflow-hidden bg-parchment-50 py-24 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
         <header className="max-w-4xl">
-          <h2 className="text-balance font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
+          <h2 className="text-balance font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl">
             The commitments that shape every trust we{" "}
             <em className="font-normal italic">administer.</em>
           </h2>
         </header>
       </div>
       <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">
-        <Tenet
-          index="01"
-          term="Families"
-          body="The trust serves the family. Every act of administration is measured against the people it's meant to protect, including the ones who aren't in the room yet."
-          src="/local/tenet-families.jpg"
-          align="left"
-        />
-        <Tenet
-          index="02"
-          term="Permanence"
-          body="A trust company built to outlast its founders. The records, the relationships, the institution, all designed to be inherited."
-          src="/local/tenet-permanence-v2.jpg"
-          align="right"
-        />
-        <Tenet
-          index="03"
-          term="Stewardship"
-          body="Care is the work. We administer with the rigor and attentiveness the trusts in our care deserve, in writing and in practice."
-          src="/local/tenet-stewardship.jpg"
-          align="left"
-        />
+        <ScrollReveal>
+          <Tenet
+            index="01"
+            term="The family comes first."
+            body="Every act of administration answers to the people the trust exists to protect, including the ones who aren't here yet."
+            src={asset("tenet-families.webp")}
+            align="left"
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <Tenet
+            index="02"
+            term="Built to outlast us."
+            body="A trust company designed to be inherited. The records, the relationships, the institution itself, all built to carry on without us."
+            src={asset("tenet-permanence-v2.webp")}
+            align="right"
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <Tenet
+            index="03"
+            term="Care is the work."
+            body="We administer with the rigor and attention the trusts in our care deserve, on paper and in practice."
+            src={asset("tenet-stewardship.webp")}
+            align="left"
+          />
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -116,33 +148,48 @@ function Commitments() {
 
 function ProtectionMechanics() {
   return (
-    <section className="bg-cedar-700 py-24 sm:py-32">
+    <section className="overflow-hidden bg-cedar-700 py-24 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
         <header className="max-w-3xl">
           <h2 className="font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl">
             Protection, <em className="font-normal italic">by design.</em>
           </h2>
-          <p className="mt-5 max-w-2xl text-base text-parchment-100/85 leading-[1.55]">
-            Your assets are protected by law, structure, and discipline, in that order.
+          <p className="mt-8 text-lg text-parchment-100/85 leading-[1.55] md:text-xl">
+            Less a promise than a design. Three layers stand between your trust and anything that
+            could reach it.
           </p>
         </header>
-        <dl className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-3 md:mt-16">
-          {PROTECTIONS.map(({ Icon, term, body }) => (
-            <div key={term}>
-              <Icon
-                aria-hidden="true"
-                className="size-7 stroke-yarrow-500"
-                strokeWidth={1.5}
-              />
-              <dt className="mt-5 font-normal font-serif text-xl text-parchment-50 leading-tight">
-                {term}
-              </dt>
-              <dd className="mt-3 text-base text-parchment-100/80 leading-relaxed">{body}</dd>
-            </div>
+        <div className="mt-16 grid gap-8 sm:grid-cols-3 md:mt-20 md:gap-10">
+          {PROTECTIONS.map((protection, i) => (
+            <ScrollReveal key={protection.term} delay={i * 120}>
+              <ProtectionCard {...protection} />
+            </ScrollReveal>
           ))}
-        </dl>
+        </div>
       </div>
     </section>
+  );
+}
+
+function ProtectionCard({ Icon, term, body, src }: ProtectionBlock) {
+  return (
+    <div className="flex h-full flex-col">
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-cedar-800">
+        <Image
+          src={src}
+          alt=""
+          fill
+          sizes="(min-width: 640px) 30vw, 100vw"
+          quality={90}
+          className="object-cover object-center"
+        />
+      </div>
+      <Icon aria-hidden="true" className="mt-6 size-7 stroke-yarrow-500" strokeWidth={1.5} />
+      <h3 className="mt-4 font-normal font-serif text-2xl text-parchment-50 leading-tight">
+        {term}
+      </h3>
+      <p className="mt-3 text-base text-parchment-100/75 leading-relaxed">{body}</p>
+    </div>
   );
 }
 
@@ -165,7 +212,7 @@ function Tenet({
   const photo = (
     <div
       className={cn(
-        "relative aspect-[4/5] w-full overflow-hidden bg-parchment-200",
+        "relative aspect-[4/3] w-full overflow-hidden bg-parchment-200",
         align === "left" ? "md:rounded-e-2xl" : "md:rounded-s-2xl"
       )}
     >
@@ -205,4 +252,3 @@ function Tenet({
     </article>
   );
 }
-

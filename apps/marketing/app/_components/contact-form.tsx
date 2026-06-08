@@ -2,17 +2,13 @@
 
 import { ArrowRight } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
-import { useActionState } from "react";
-import {
-  type ContactPersona,
-  type ContactState,
-  submitContact,
-} from "../actions/contact";
-import { BrandButton } from "./ui/brand-button";
+import { type ContactPersona, type ContactState, submitContact } from "../actions/contact";
 import { MarketingField } from "./marketing-field";
 import { MarketingInput } from "./marketing-input";
+import { MarketingSelect } from "./marketing-select";
+import { BrandButton } from "./ui/brand-button";
 
 interface PersonaOption {
   value: ContactPersona;
@@ -70,28 +66,23 @@ export function ContactForm() {
     <form action={formAction} className="mt-12 space-y-8" noValidate>
       {/* Persona dropdown — drives which fields show + the submit label. */}
       <MarketingField label="I am a" htmlFor="contact-persona" error={errors?.persona}>
-        <select
+        <MarketingSelect
           id="contact-persona"
           name="persona"
           value={persona}
           onChange={(e) => setPersona(e.target.value as ContactPersona)}
-          aria-invalid={!!errors?.persona || undefined}
-          className="block w-full rounded-md border border-cedar-900/20 bg-parchment-50 px-4 py-3 text-base text-cedar-900 transition-colors hover:border-cedar-900/40 focus:border-cedar-900 focus:outline-none focus:ring-2 focus:ring-cedar-900/20 aria-invalid:border-destructive"
+          invalid={!!errors?.persona}
         >
           {PERSONA_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
             </option>
           ))}
-        </select>
+        </MarketingSelect>
       </MarketingField>
 
       <div className="grid gap-8 sm:grid-cols-2">
-        <MarketingField
-          label="First name"
-          htmlFor="contact-firstName"
-          error={errors?.firstName}
-        >
+        <MarketingField label="First name" htmlFor="contact-firstName" error={errors?.firstName}>
           <MarketingInput
             id="contact-firstName"
             name="firstName"
@@ -104,11 +95,7 @@ export function ContactForm() {
           />
         </MarketingField>
 
-        <MarketingField
-          label="Last name"
-          htmlFor="contact-lastName"
-          error={errors?.lastName}
-        >
+        <MarketingField label="Last name" htmlFor="contact-lastName" error={errors?.lastName}>
           <MarketingInput
             id="contact-lastName"
             name="lastName"
@@ -147,10 +134,7 @@ export function ContactForm() {
   );
 }
 
-function GrantorFields({
-  values,
-  errors,
-}: Pick<ContactState, "values" | "errors">) {
+function GrantorFields({ values, errors }: Pick<ContactState, "values" | "errors">) {
   return (
     <>
       <MarketingField
@@ -175,13 +159,12 @@ function GrantorFields({
         htmlFor="contact-stage"
         error={errors?.stage}
       >
-        <select
+        <MarketingSelect
           id="contact-stage"
           name="stage"
           required
           defaultValue={values?.stage ?? ""}
-          aria-invalid={!!errors?.stage || undefined}
-          className="block w-full rounded-md border border-cedar-900/20 bg-parchment-50 px-4 py-3 text-base text-cedar-900 transition-colors hover:border-cedar-900/40 focus:border-cedar-900 focus:outline-none focus:ring-2 focus:ring-cedar-900/20 aria-invalid:border-destructive"
+          invalid={!!errors?.stage}
         >
           <option value="" disabled>
             Select one
@@ -191,7 +174,7 @@ function GrantorFields({
               {s.label}
             </option>
           ))}
-        </select>
+        </MarketingSelect>
       </MarketingField>
     </>
   );
@@ -221,10 +204,24 @@ function ProfessionalFields({
   );
 }
 
+const CALENDLY_DEMO_URL = "https://calendly.com/shivi-savahq/30min";
+
 function SubmitButton({ persona }: { persona: ContactPersona }) {
   const { pending } = useFormStatus();
-  const label =
-    persona === "grantor" ? "Schedule a consultation" : "Request a demo";
+
+  // Attorneys + advisors skip the form submission and go straight to
+  // Calendly — for them this page is a demo-booking entry point, not
+  // an inbound lead form.
+  if (persona === "attorney" || persona === "advisor") {
+    return (
+      <BrandButton asChild brand="cedar" size="xl" className="w-full sm:w-auto">
+        <a href={CALENDLY_DEMO_URL} target="_blank" rel="noreferrer noopener">
+          Request a demo <ArrowRight aria-hidden="true" />
+        </a>
+      </BrandButton>
+    );
+  }
+
   return (
     <BrandButton
       type="submit"
@@ -233,7 +230,7 @@ function SubmitButton({ persona }: { persona: ContactPersona }) {
       disabled={pending}
       className="w-full sm:w-auto"
     >
-      {pending ? "Sending…" : label}
+      {pending ? "Sending…" : "Schedule a consultation"}
       {!pending && <ArrowRight aria-hidden="true" />}
     </BrandButton>
   );

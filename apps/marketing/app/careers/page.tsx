@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Eyebrow } from "../_components/ui/eyebrow";
+import { asset } from "../_lib/asset";
 import { OPEN_ROLES } from "./roles";
 
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ export default function CareersPage() {
         </div>
         <div className="relative aspect-[16/7] w-full overflow-hidden bg-parchment-200">
           <Image
-            src="/local/careers-conversation.jpg"
+            src={asset("careers-conversation.webp")}
             alt=""
             fill
             sizes="100vw"

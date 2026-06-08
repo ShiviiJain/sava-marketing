@@ -10,7 +10,7 @@ const GROUND_COLOR: Record<Ground, string> = {
 
 interface EyebrowProps extends React.HTMLAttributes<HTMLElement> {
   ground?: Ground;
-  as?: "p" | "span";
+  as?: "p" | "span" | "h2" | "h3";
   // Numeric labels ("01", "02") share the same mono accent treatment
   // but skip uppercase. Default true for text eyebrows.
   uppercase?: boolean;

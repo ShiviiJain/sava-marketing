@@ -13,7 +13,7 @@ export default function Home() {
     <main>
       <MarketingHero />
       <ServicesSection leaf="right" />
-      <NevadaSection />
+      <NevadaSection showPhoto showButton ctaHref="/advisors#why-nevada" />
       <AudienceSection />
     </main>
   );

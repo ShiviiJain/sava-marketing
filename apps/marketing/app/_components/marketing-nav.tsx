@@ -13,10 +13,11 @@ const PRIMARY_LINKS = [
   { href: "/careers", label: "Careers" },
 ];
 
-// Routes whose hero uses `-mt-20` to bleed the cedar background
-// behind the nav — only these can host a transparent header without
-// the light text falling on white body bg.
-const CEDAR_HERO_ROUTES = new Set(["/", "/attorneys", "/families", "/advisors"]);
+// Only the home hero is uniformly dark enough to host the transparent
+// (light-text) nav. Every other route keeps the solid white nav so the
+// links stay legible — the audience heroes have a light photo half where
+// light nav text would vanish.
+const CEDAR_HERO_ROUTES = new Set(["/"]);
 
 // Nav flips at this scroll distance. 32px feels like "past the hero
 // top edge" without flickering at the very top.
@@ -26,8 +27,9 @@ export function MarketingNav() {
   const pathname = usePathname();
   const scrolledPastHero = useScrolled(SCROLL_THRESHOLD);
 
-  // Splash route is rendered chrome-less — just the savahq.com text.
-  if (pathname === "/landing") return null;
+  // Splash + standalone tool routes are chrome-less (they render their own
+  // minimal header).
+  if (pathname === "/landing" || pathname === "/nevada-to-delaware") return null;
 
   // Treat parchment-background pages like the scrolled state so the
   // dark links stay legible — there's no dark hero to anchor light text.

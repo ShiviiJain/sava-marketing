@@ -17,10 +17,10 @@ export function MarketingInput({ className, invalid, ...props }: MarketingInputP
     // biome-ignore lint: marketing-scoped Input atom — raw <input> is the implementation detail it hides; promoting apps/web Input to @sava/ui is tracked separately.
     <input
       className={cn(
-        "block w-full rounded-md border border-border bg-background px-4 py-3 text-base text-foreground transition-colors",
-        "placeholder:text-muted-foreground",
-        "hover:border-border-strong",
-        "focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20",
+        "block w-full rounded-md border border-cedar-900/20 bg-parchment-50 px-4 py-3 text-base text-cedar-900 transition-colors",
+        "placeholder:text-cedar-900/40",
+        "hover:border-cedar-900/40",
+        "focus:border-cedar-900 focus:outline-none focus:ring-2 focus:ring-cedar-900/20",
         "disabled:pointer-events-none disabled:opacity-50",
         invalid &&
           "border-destructive focus:border-destructive focus:ring-destructive/20 aria-invalid:border-destructive",

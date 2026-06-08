@@ -1,5 +1,8 @@
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { Eyebrow } from "./ui/eyebrow";
+import Link from "next/link";
+import { asset } from "../_lib/asset";
+import { BrandButton } from "./ui/brand-button";
 
 const FACTS = [
   {
@@ -20,33 +23,60 @@ const FACTS = [
   },
 ];
 
-export function NevadaSection() {
-  return (
-    <section className="relative overflow-hidden bg-cedar-700 py-24 sm:py-32">
-      {/* Hero row spans the full viewport so the photo can sit flush
-          against the right edge. Text column pads itself out to align
-          with the normal max-w-7xl left margin. */}
-      <div className="grid items-center gap-12 md:grid-cols-[1fr_1fr] md:gap-0">
-        <div className="px-6 md:ps-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] md:pe-10 lg:pe-16">
-          <TextPanel />
-        </div>
-        <PhotoPanel />
-      </div>
+interface NevadaSectionProps {
+  /** Two-column hero with the photo on the right + leaf bleeding off the
+   *  left. Used on the landing page. Audience pages render text-only. */
+  showPhoto?: boolean;
+  /** Render the four-fact row underneath the headline. Used on /families,
+   *  /attorneys, /advisors. */
+  showFacts?: boolean;
+  /** Render the "Read more" CTA. Used on the landing page; the destination
+   *  is configurable per surface. */
+  showButton?: boolean;
+  /** Where the "Read more" CTA links to. Defaults to /advisors#why-nevada. */
+  ctaHref?: string;
+}
 
-      <div className="relative z-10 mx-auto mt-20 max-w-7xl px-6">
-        <FactsRow />
-      </div>
+export function NevadaSection({
+  showPhoto = false,
+  showFacts = false,
+  showButton = false,
+  ctaHref = "/advisors#why-nevada",
+}: NevadaSectionProps = {}) {
+  return (
+    <section id="why-nevada" className="relative overflow-hidden bg-cedar-700 py-24 sm:py-32">
+      {/* Leaf side mirrors the layout: with-photo hero has the photo on
+          the right, so the leaf bleeds off the left. Text-only hero has
+          no photo, so the leaf bleeds off the right (a la /attorneys). */}
+      <NevadaLeaf side={showPhoto ? "left" : "right"} />
+
+      {showPhoto ? (
+        <div className="relative z-10 grid items-center gap-12 md:grid-cols-[1fr_1fr] md:gap-0">
+          <div className="px-6 md:ps-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] md:pe-10 lg:pe-16">
+            <TextPanel showButton={showButton} ctaHref={ctaHref} />
+          </div>
+          <PhotoPanel />
+        </div>
+      ) : (
+        <div className="relative z-10 mx-auto max-w-7xl px-6">
+          <TextPanel wide showButton={showButton} ctaHref={ctaHref} />
+        </div>
+      )}
+
+      {showFacts && (
+        <div className="relative z-10 mx-auto mt-20 max-w-7xl px-6">
+          <FactsRow />
+        </div>
+      )}
     </section>
   );
 }
 
 function PhotoPanel() {
   return (
-    // No right padding on the parent grid cell + rounded-s only → photo
-    // is flush against the viewport's right edge, "emerging" from there.
     <div className="relative aspect-[4/3] w-full overflow-hidden rounded-s-2xl bg-parchment-200">
       <Image
-        src="/local/why-nevada.jpg"
+        src={asset("why-nevada.webp")}
         alt=""
         fill
         sizes="(min-width: 768px) 50vw, 100vw"
@@ -57,21 +87,42 @@ function PhotoPanel() {
   );
 }
 
-function TextPanel() {
+function TextPanel({
+  wide = false,
+  showButton = false,
+  ctaHref,
+}: {
+  wide?: boolean;
+  showButton?: boolean;
+  ctaHref?: string;
+}) {
   return (
     <div>
       <h2 className="font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
         Why <em className="font-normal italic">Nevada.</em>
       </h2>
-      <div className="mt-8 max-w-md space-y-4 text-lg text-parchment-100/85 leading-[1.55]">
+      <div
+        className={`mt-8 space-y-4 text-lg text-parchment-100/85 leading-[1.55] md:text-xl ${
+          wide ? "max-w-3xl" : "max-w-md"
+        }`}
+      >
         <p>
           Nevada has one of the most modern and protective trust frameworks in the United States.
         </p>
         <p>
-          Sava situs trusts here because the legal structure meaningfully benefits the families
-          and advisors we serve.
+          Sava situs trusts here because the legal structure meaningfully benefits the families and
+          advisors we serve.
         </p>
       </div>
+      {showButton && ctaHref && (
+        <div className="mt-10">
+          <BrandButton asChild brand="primary" size="xl">
+            <Link href={ctaHref}>
+              Read more <ArrowRight aria-hidden="true" />
+            </Link>
+          </BrandButton>
+        </div>
+      )}
     </div>
   );
 }
@@ -94,3 +145,27 @@ function FactsRow() {
   );
 }
 
+// Cedar-toned leaf bleeding off either the LEFT or RIGHT viewport edge.
+// Same size / opacity treatment as services-section for visual rhyme.
+function NevadaLeaf({ side }: { side: "left" | "right" }) {
+  const maskUrl = `url(${asset("leaves/test-15.png")})`;
+  const left = side === "left";
+  return (
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-y-0 z-0 w-[60%] bg-cedar-900/55 md:w-[55%] lg:w-[50%] ${
+        left ? "-start-4 md:-start-6 lg:-start-8" : "-end-4 md:-end-6 lg:-end-8"
+      }`}
+      style={{
+        maskImage: maskUrl,
+        maskRepeat: "no-repeat",
+        maskSize: "auto 100%",
+        maskPosition: left ? "left center" : "right center",
+        WebkitMaskImage: maskUrl,
+        WebkitMaskRepeat: "no-repeat",
+        WebkitMaskSize: "auto 100%",
+        WebkitMaskPosition: left ? "left center" : "right center",
+      }}
+    />
+  );
+}

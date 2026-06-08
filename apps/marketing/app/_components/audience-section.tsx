@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { asset } from "../_lib/asset";
 
 interface AudienceCard {
   href: string;
@@ -16,22 +17,22 @@ const AUDIENCES: AudienceCard[] = [
   {
     href: "/families",
     label: "For families",
-    tagline: "Modern administration for families thinking across generations.",
-    imageSrc: "/local/families-portrait.jpg",
+    tagline: "Modern administration for the generational family.",
+    imageSrc: asset("families-portrait.webp"),
     imagePosition: "50% center",
   },
   {
     href: "/attorneys",
     label: "For attorneys",
     tagline: "A fiduciary partner you can put your name behind.",
-    imageSrc: "/local/attorneys-portrait.jpg",
+    imageSrc: asset("attorneys-portrait.webp"),
     imagePosition: "50% center",
   },
   {
     href: "/advisors",
     label: "For advisors",
-    tagline: "Directed trust services that protect your client relationship.",
-    imageSrc: "/local/advisor-portrait.jpg",
+    tagline: "Directed services that respect your relationship.",
+    imageSrc: asset("advisor-portrait.webp"),
     imagePosition: "50% center",
   },
 ];
@@ -40,8 +41,8 @@ export function AudienceSection() {
   return (
     <section className="bg-parchment-50 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <header className="max-w-3xl">
-          <h2 className="font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
+        <header>
+          <h2 className="font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:whitespace-nowrap lg:text-5xl">
             Built for the entire trust <em className="font-normal italic">ecosystem.</em>
           </h2>
           <p className="mt-8 max-w-2xl text-cedar-900/70 text-lg leading-[1.55]">

@@ -26,7 +26,11 @@ type BrandVariant =
 const ARROW_SLIDE = "[&_svg]:transition-transform hover:[&_svg]:translate-x-0.5";
 
 const VARIANT_CLASSES: Record<BrandVariant, string> = {
-  primary: `brand-button-primary-animated rounded-lg font-mono [&_svg]:hidden`,
+  // Override the base Button's reduced has-[>svg] padding — since
+  // primary hides the trailing arrow icon, the text would otherwise
+  // sit off-center (right-padding shrinks to make room for an icon
+  // that's display:none).
+  primary: `brand-button-primary-animated rounded-lg font-mono [&_svg]:hidden has-[>svg]:px-8`,
   secondary:
     "border border-yarrow-500 bg-transparent text-parchment-50 hover:bg-yarrow-500 hover:text-cedar-900",
   tertiary: `text-parchment-50 hover:text-yarrow-300 ${ARROW_SLIDE}`,

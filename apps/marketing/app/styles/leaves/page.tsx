@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Eyebrow } from "../../_components/ui/eyebrow";
+import { asset } from "../../_lib/asset";
 
 export const metadata: Metadata = {
   title: "Styles — Leaf gallery",
@@ -66,7 +67,7 @@ function LeafThumb({ number, ground }: LeafThumbProps) {
       }`}
     >
       <Image
-        src={`/local/leaves/test-${padded}.png`}
+        src={asset(`leaves/test-${padded}.png`)}
         alt={`Leaf ${padded}`}
         width={200}
         height={200}

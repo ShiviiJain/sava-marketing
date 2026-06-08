@@ -73,14 +73,14 @@ export default async function RolePage({ params }: PageProps) {
           </Section>
           <Section heading="About Sava">
             <p>
-              Sava is building a modern trust company. Trusts hold trillions of dollars and are
-              one of the main ways wealth moves between generations. A trust company acts as a
-              trustee for trusts by holding the trust's assets and executing the specific wishes
-              of a family.
+              Sava is building a modern trust company. Trusts hold trillions of dollars and are one
+              of the main ways wealth moves between generations. A trust company acts as a trustee
+              for trusts by holding the trust's assets and executing the specific wishes of a
+              family.
             </p>
             <p className="mt-4">
-              Sava is building a new full-stack, chartered trust company. Not only the software
-              for banks and lawyers, but also the actual regulated entity.
+              Sava is building a new full-stack, chartered trust company. Not only the software for
+              banks and lawyers, but also the actual regulated entity.
             </p>
           </Section>
         </div>

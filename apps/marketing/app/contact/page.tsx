@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Suspense } from "react";
 import { ContactForm } from "../_components/contact-form";
+import { asset } from "../_lib/asset";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -19,9 +20,8 @@ export default function ContactPage() {
           <h1 className="font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
             Talk to <em className="font-normal italic">us.</em>
           </h1>
-          <p className="mt-4 max-w-md text-base text-cedar-900/70 leading-relaxed">
-            Tell us a little about where you are in the process. We reply within
-            one business day.
+          <p className="mt-8 max-w-2xl text-lg text-cedar-900/70 leading-[1.55] md:text-xl">
+            Tell us a little about where you are in the process. We reply within one business day.
           </p>
 
           {/* Suspense is required because ContactForm reads `?as=` via
@@ -48,12 +48,7 @@ export default function ContactPage() {
             bites on top-left + bottom-right. Border-radius can't do
             the concave bites, so this uses an SVG clipPath. */}
         <div className="hidden md:block">
-          <svg
-            width="0"
-            height="0"
-            aria-hidden="true"
-            className="pointer-events-none absolute"
-          >
+          <svg width="0" height="0" aria-hidden="true" className="pointer-events-none absolute">
             <defs>
               <clipPath id="contact-blob" clipPathUnits="objectBoundingBox">
                 {/* Coords normalized 0–1.
@@ -90,7 +85,7 @@ export default function ContactPage() {
             }}
           >
             <Image
-              src="/local/contact-hero.jpg"
+              src={asset("contact-hero.webp")}
               alt=""
               fill
               sizes="(min-width: 768px) 50vw, 100vw"

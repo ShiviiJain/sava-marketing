@@ -30,7 +30,7 @@ export const OPEN_ROLES: OpenRole[] = [
       "Take operational reliability seriously: monitoring, runbooks, recovery. This is regulated infrastructure.",
     ],
     qualifications: [
-      "Five or more years building production software, across both frontend and backend.",
+      "Three or more years building production software, across both frontend and backend.",
       "Comfortable with TypeScript, React, Go, Postgres, and the parts of AWS that handle storage and queues.",
       "A taste for the fiduciary domain: what a directed trust is, how a distribution gets approved, how custody gets reconciled.",
       "Bias for writing things down. The codebase reads like the records it represents.",

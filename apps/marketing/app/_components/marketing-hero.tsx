@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { asset } from "../_lib/asset";
 import { BrandButton } from "./ui/brand-button";
 
 export function MarketingHero() {
@@ -11,7 +12,7 @@ export function MarketingHero() {
           of the viewport. */}
       <div className="absolute inset-0">
         <Image
-          src="/local/hero-family-portrait.jpg"
+          src={asset("hero-family-portrait.webp")}
           alt=""
           fill
           sizes="100vw"
@@ -38,7 +39,7 @@ function TextPanel() {
         <span className="block whitespace-nowrap">For Families,</span>
         <span className="block whitespace-nowrap">thinking across generations</span>
       </h1>
-      <p className="mt-6 max-w-xl text-base text-parchment-50/70 leading-[1.55] md:text-lg">
+      <p className="mt-8 max-w-2xl text-lg text-parchment-100/85 leading-[1.55] md:text-xl">
         A chartered Nevada fiduciary for families thinking across generations. Experience total
         transparency for families and absolute control for advisors.
       </p>

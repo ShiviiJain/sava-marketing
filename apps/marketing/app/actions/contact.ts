@@ -31,14 +31,7 @@ const MAX_ENTITY = 200;
 const MAX_EMAIL = 320;
 const MAX_FIRM = 200;
 
-type ContactField =
-  | "persona"
-  | "firstName"
-  | "lastName"
-  | "email"
-  | "entity"
-  | "firm"
-  | "stage";
+type ContactField = "persona" | "firstName" | "lastName" | "email" | "entity" | "firm" | "stage";
 
 export interface ContactState {
   ok?: boolean;
@@ -100,10 +93,7 @@ export async function submitContact(
     firm,
     stage,
   };
-  await Promise.allSettled([
-    notifyContactSubmission(submission),
-    sendContactEmail(submission),
-  ]);
+  await Promise.allSettled([notifyContactSubmission(submission), sendContactEmail(submission)]);
 
   redirect("/contact/thanks");
 }

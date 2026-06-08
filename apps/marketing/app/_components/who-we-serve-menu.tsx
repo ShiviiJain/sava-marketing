@@ -92,8 +92,7 @@ export function WhoWeServeMenu({ scrolled = true }: { scrolled?: boolean }) {
         role="menu"
         aria-label="Who we serve"
         className={cn(
-          "absolute top-full start-0 z-50 w-56 py-1.5 transition-[opacity,transform] duration-200",
-          scrolled ? "bg-white shadow-lg shadow-black/5" : "bg-transparent",
+          "absolute top-full start-0 z-50 mt-1 w-56 rounded-md bg-white py-1.5 shadow-lg shadow-black/10 ring-1 ring-cedar-900/5 transition-[opacity,transform] duration-200",
           open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0"
         )}
       >
@@ -107,16 +106,8 @@ export function WhoWeServeMenu({ scrolled = true }: { scrolled?: boolean }) {
               aria-current={active ? "page" : undefined}
               onClick={() => setOpen(false)}
               className={cn(
-                "block border-yarrow-500 border-s-2 border-s-transparent px-3 py-2.5 font-medium text-sm transition-colors focus-visible:outline-none",
-                scrolled
-                  ? cn(
-                      "hover:bg-parchment-100 hover:border-s-yarrow-500 focus-visible:bg-parchment-100",
-                      active ? "border-s-yarrow-500 text-yarrow-600" : "text-foreground"
-                    )
-                  : cn(
-                      "hover:bg-parchment-50/10 hover:border-s-yarrow-500 focus-visible:bg-parchment-50/10",
-                      active ? "border-s-yarrow-500 text-yarrow-300" : "text-parchment-50"
-                    )
+                "block border-yarrow-500 border-s-2 border-s-transparent px-3 py-2.5 font-medium text-sm transition-colors hover:bg-parchment-100 hover:border-s-yarrow-500 focus-visible:bg-parchment-100 focus-visible:outline-none",
+                active ? "border-s-yarrow-500 text-yarrow-600" : "text-foreground"
               )}
             >
               {item.label}
