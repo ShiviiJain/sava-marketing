@@ -55,6 +55,7 @@ const COLUMNS: FooterColumn[] = [
       { label: "For families", href: "/families" },
       { label: "For attorneys", href: "/attorneys" },
       { label: "For advisors", href: "/advisors" },
+      { label: "Convert to a Nevada trust", href: "/convert-to-a-nevada-trust" },
     ],
   },
   {

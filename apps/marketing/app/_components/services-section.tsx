@@ -19,12 +19,12 @@ export function ServicesSection(_props: ServicesSectionProps = {}) {
       <div className="relative z-10 grid items-center gap-12 md:grid-cols-[1fr_1fr] md:gap-0">
         {/* Mirror of Why Nevada: photo flush to the LEFT viewport edge,
             rounded on the END (right) side so the curve faces the text. */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-e-2xl bg-parchment-200">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-e-[4px] bg-parchment-200">
           <Image
             src={asset("services-founders.webp")}
             alt=""
             fill
-            sizes="(min-width: 768px) 50vw, 100vw"
+            sizes="(min-width: 1024px) 70rem, (min-width: 768px) 50vw, 100vw"
             quality={90}
             className="object-cover object-center"
           />
@@ -32,12 +32,12 @@ export function ServicesSection(_props: ServicesSectionProps = {}) {
         <div className="relative">
           <div className="flex flex-col px-6 md:ps-12 md:pe-8 lg:ps-16 lg:pe-12">
             <div className="max-w-2xl">
-              <h2 className="font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-[2.75rem]">
-                What we <em className="font-normal italic">administer.</em>
+              <h2 className="font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
+                What we administer.
               </h2>
-              <div className="mt-8 max-w-2xl space-y-5 text-cedar-900/75 text-lg leading-[1.6] md:text-xl">
+              <div className="mt-8 max-w-2xl space-y-5 text-[1.0625rem] text-cedar-900/75 leading-[1.6] md:text-[1.1875rem]">
                 <p>
-                  Sava administers Nevada directed trusts — keeping investment authority with your
+                  Sava administers Nevada directed trusts, keeping investment authority with your
                   advisors and trust administration with us.
                 </p>
                 <p>
@@ -61,7 +61,7 @@ function ServicesLeaf() {
   return (
     <div
       aria-hidden="true"
-      className="-end-4 pointer-events-none absolute inset-y-0 z-0 w-[60%] bg-yarrow-300/45 md:-end-6 md:w-[55%] lg:-end-8 lg:w-[50%]"
+      className="-end-4 pointer-events-none absolute inset-y-0 z-0 w-[60%] bg-parchment-200 md:-end-6 md:w-[55%] lg:-end-8 lg:w-[50%]"
       style={{
         maskImage: maskUrl,
         maskRepeat: "no-repeat",

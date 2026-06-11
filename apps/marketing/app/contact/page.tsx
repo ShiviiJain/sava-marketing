@@ -43,46 +43,11 @@ export default function ContactPage() {
           </p>
         </div>
 
-        {/* Photo column — diagonal-asymmetric shape: large convex
-            rounded curves on top-right + bottom-left, small concave
-            bites on top-left + bottom-right. Border-radius can't do
-            the concave bites, so this uses an SVG clipPath. */}
+        {/* Photo column — plain rectangle, lightly rounded. */}
         <div className="hidden md:block">
-          <svg width="0" height="0" aria-hidden="true" className="pointer-events-none absolute">
-            <defs>
-              <clipPath id="contact-blob" clipPathUnits="objectBoundingBox">
-                {/* Coords normalized 0–1.
-                    - Top-left  concave bite, radius 0.06 (small)
-                    - Top-right convex round,  radius 0.18 (large)
-                    - Bottom-right concave bite, radius 0.06 (small, mirrors top-left)
-                    - Bottom-left  convex round,  radius 0.18 (large, mirrors top-right)
-                    The 0.099 / 0.027 numbers come from the standard
-                    quarter-arc magic constant (0.5523 × radius), used
-                    for both convex (corner-on-the-inside) and concave
-                    (corner-on-the-outside) arcs. */}
-                <path
-                  d="
-                    M 0.06 0.00
-                    L 0.82 0.00
-                    C 0.919 0.00, 1.00 0.081, 1.00 0.18
-                    L 1.00 0.94
-                    C 1.00 0.973, 0.973 1.00, 0.94 1.00
-                    L 0.18 1.00
-                    C 0.081 1.00, 0.00 0.919, 0.00 0.82
-                    L 0.00 0.06
-                    C 0.00 0.027, 0.027 0.00, 0.06 0.00
-                    Z
-                  "
-                />
-              </clipPath>
-            </defs>
-          </svg>
           <div
-            className="relative overflow-hidden bg-parchment-200"
-            style={{
-              aspectRatio: "5 / 6",
-              clipPath: "url(#contact-blob)",
-            }}
+            className="relative overflow-hidden rounded-[4px] bg-parchment-200"
+            style={{ aspectRatio: "5 / 6" }}
           >
             <Image
               src={asset("contact-hero.webp")}

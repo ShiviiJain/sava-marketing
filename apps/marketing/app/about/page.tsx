@@ -1,28 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { Eyebrow } from "../_components/ui/eyebrow";
 import { asset } from "../_lib/asset";
-
-// Faint linocut leaf silhouette anchored to the right edge of the hero,
-// the same CSS-mask treatment used elsewhere on the site.
-function LeafBackdrop() {
-  const maskUrl = `url(${asset("leaves/test-15.png")})`;
-  return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-y-0 end-0 z-0 w-[60%] bg-parchment-50/[0.08]"
-      style={{
-        maskImage: maskUrl,
-        maskRepeat: "no-repeat",
-        maskSize: "auto 110%",
-        maskPosition: "right center",
-        WebkitMaskImage: maskUrl,
-        WebkitMaskRepeat: "no-repeat",
-        WebkitMaskSize: "auto 110%",
-        WebkitMaskPosition: "right center",
-      }}
-    />
-  );
-}
 
 export const metadata: Metadata = {
   title: "About",
@@ -34,69 +14,103 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main>
-      <section className="relative isolate overflow-hidden bg-cedar-700">
-        <LeafBackdrop />
-        <div className="relative z-10 mx-auto max-w-3xl px-6 py-24 sm:py-32 md:py-40">
-          <h1 className="font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
-            We built the trust company we wished had{" "}
-            <em className="font-normal italic">existed.</em>
-          </h1>
-          <p className="mt-10 max-w-2xl text-lg text-parchment-100/85 leading-[1.55] md:text-xl">
-            Trusts hold trillions of dollars on behalf of American families. The institutions that
-            administer them mostly do not.
+      {/* Editorial about header: breadcrumb, heading on the left with a short
+          intro on the right, a two-up image band, then the "Our story" block. */}
+      <section className="bg-parchment-50">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:py-20 lg:py-24">
+          <p className="font-mono font-semibold text-2xs text-cedar-900 uppercase tracking-[0.18em]">
+            About
           </p>
+
+          <div className="mt-8 grid items-start gap-8 md:mt-10 lg:grid-cols-2 lg:gap-16">
+            <h1 className="font-normal font-serif text-xl text-cedar-900 leading-[1.15] tracking-[-0.01em] sm:text-2xl lg:text-3xl">
+              We built the trust company we wished had{" "}
+              <em className="font-normal italic">existed.</em>
+            </h1>
+            <div className="lg:pt-3">
+              <p className="text-base text-cedar-900/70 leading-relaxed md:text-lg">
+                Sava is a Nevada-chartered trust company building the operational infrastructure for
+                modern fiduciary administration, trusted for clarity, independence, and permanence.
+              </p>
+            </div>
+          </div>
+
+          <div className="mx-auto mt-14 grid max-w-6xl gap-6 sm:grid-cols-[1fr_2fr] md:mt-16 md:gap-8">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-parchment-200">
+              <Image
+                src={asset("about-story-1.webp")}
+                alt=""
+                fill
+                sizes="(min-width: 640px) 30vw, 100vw"
+                quality={90}
+                className="object-cover object-center"
+              />
+            </div>
+            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-parchment-200">
+              <Image
+                src={asset("about-story-2.webp")}
+                alt=""
+                fill
+                sizes="(min-width: 640px) 60vw, 100vw"
+                quality={90}
+                className="object-cover object-center"
+              />
+            </div>
+          </div>
+
+          <div className="mt-16 grid gap-6 md:mt-20 md:grid-cols-[10rem_1fr] md:gap-12 lg:gap-16">
+            <Eyebrow as="h2">Our story</Eyebrow>
+            <div className="max-w-3xl">
+              {/* Lead — small */}
+              <p className="text-lg text-cedar-900/85 leading-relaxed md:text-xl">
+                The work of holding a trust is changing slowly, and for the better. It can be more
+                careful, more independent, more built to last. But the institutions doing that work
+                mostly aren't built for it.
+              </p>
+              {/* Body — even smaller */}
+              <div className="mt-6 space-y-4 text-cedar-900 text-base leading-relaxed md:text-lg">
+                <p>
+                  Everyone tried to fix this by adding layers. More products to cross-sell. More
+                  incentives that quietly pulled the trustee and the investment advisor onto the same
+                  balance sheet. More reasons to make leaving hard.
+                </p>
+                <p>
+                  We believe a trust company should be built differently from the foundation, not
+                  patched at the edges. So we had to start from ground zero.
+                </p>
+                <p className="font-medium text-cedar-900">So we built Sava.</p>
+                <p>
+                  A chartered fiduciary in Nevada, owned by its partners and built to operate across
+                  generations rather than across quarters. Every part of how we hold a trust, we
+                  built from the ground up, with no legacy incentives and no inherited conflicts. We
+                  are purpose-built to administer trusts for the next hundred years.
+                </p>
+                <p>
+                  And we are just getting started. The chartered fiduciary is the foundation. The
+                  part that has to be unimpeachable before anything else can stand on it. From here
+                  we intend to build outward: more of the work that families and their advisors have
+                  always had to stitch together themselves, held to the same standard.
+                </p>
+                <p>
+                  Trusts belong to the families that create them. We just hold the chair, and we
+                  plan to make it the best-built chair in the country.
+                </p>
+                <p>
+                  If you'd like to work with us, these are our{" "}
+                  <Link
+                    href="/careers"
+                    className="font-medium text-cedar-900 underline decoration-cedar-900/30 underline-offset-4 transition-colors hover:decoration-cedar-900"
+                  >
+                    open roles
+                  </Link>
+                  .
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <Charter />
-
-      <section className="bg-parchment-50 pt-12 pb-20 sm:pt-16 sm:pb-28">
-        <article className="mx-auto max-w-2xl px-6 text-cedar-900">
-          <h2 className="font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-[2.75rem]">
-            What we <em className="font-normal italic">won't do.</em>
-          </h2>
-
-          <div className="mt-8 space-y-6 text-lg leading-[1.7]">
-            <p>
-              We don't sell investment products. We don't take a cut of the assets we administer. We
-              don't blur the line between trustee and investment advisor. Directed trust structures
-              keep the two cleanly separated, and we honor that separation rather than quietly
-              absorb it.
-            </p>
-            <p>
-              If a family ever decides they'd rather work with someone else, we make leaving easy.
-              Trusts belong to the families that create them. We just hold the chair.
-            </p>
-          </div>
-        </article>
-      </section>
     </main>
-  );
-}
-
-// Two-column "Our Charter" panel. Photo bleeds to the left viewport
-// edge; editorial copy sits on a parchment field with a yarrow leaf
-// silhouette running off the right edge. Top + bottom hairline rules
-// frame the panel like a printed page; the meta footer mirrors a
-// magazine masthead.
-function Charter() {
-  return (
-    <section className="relative isolate overflow-hidden bg-parchment-50 pt-20 sm:pt-28">
-      <div className="relative z-10 mx-auto w-full max-w-2xl px-6">
-        <Eyebrow>Our charter</Eyebrow>
-        <p className="mt-10 font-normal font-serif text-cedar-900 text-xl italic leading-snug md:text-2xl">
-          We hold what families intend to keep.
-        </p>
-        <h2 className="mt-8 font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-[2.75rem]">
-          Sava is a chartered fiduciary for the long horizon.
-        </h2>
-        <p className="mt-8 text-base text-cedar-900/75 leading-[1.65] md:text-lg">
-          We were founded on a single conviction: that the work of holding a trust deserves more
-          care, more independence, and more permanence than a quarterly business model can offer. We
-          are chartered in Nevada, with offices in New York, owned by our partners, and built to
-          operate across generations.
-        </p>
-      </div>
-    </section>
   );
 }

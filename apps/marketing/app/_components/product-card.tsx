@@ -1,4 +1,5 @@
 import { cn } from "@sava/ui";
+import Image from "next/image";
 import type { ReactNode } from "react";
 import { Eyebrow } from "./ui/eyebrow";
 
@@ -10,8 +11,21 @@ import { Eyebrow } from "./ui/eyebrow";
  * read as part of the marketing page rather than pasted-in screenshots.
  */
 
-/** Round monogram avatar in the yarrow accent tone. */
-export function Avatar({ initials }: { initials: string }) {
+/** Round avatar — a photo when `src` is set, otherwise a yarrow monogram. */
+export function Avatar({ initials, src, alt }: { initials: string; src?: string; alt?: string }) {
+  if (src) {
+    return (
+      <span className="relative size-9 shrink-0 overflow-hidden rounded-full bg-parchment-200">
+        <Image
+          src={src}
+          alt={alt ?? ""}
+          fill
+          sizes="36px"
+          className="object-cover object-[center_30%]"
+        />
+      </span>
+    );
+  }
   return (
     <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-yarrow-200 font-medium font-mono text-[0.7rem] text-cedar-900 tracking-wide">
       {initials}

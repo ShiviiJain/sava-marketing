@@ -1,25 +1,26 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Banknote, Hourglass, ShieldCheck, Split } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import type { ComponentType, SVGProps } from "react";
 import { asset } from "../_lib/asset";
 import { BrandButton } from "./ui/brand-button";
 
 const FACTS = [
   {
     headline: "No state income tax.",
-    body: "Nevada levies no state income tax on trusts, the income they earn, or the capital gains they realize. Over a generation, that gap compounds into real principal.",
+    body: "Nevada levies no tax on a trust's income or capital gains. Over a generation, that gap compounds into real principal for the family.",
   },
   {
     headline: "Trusts that last 365 years.",
-    body: "Nevada permits dynasty trusts to run for up to 365 years, long enough to pass wealth through roughly ten generations without re-triggering federal estate or gift tax along the way.",
+    body: "Nevada dynasty trusts can run up to 365 years, passing wealth through roughly ten generations without re-triggering federal estate tax.",
   },
   {
     headline: "Directed trusts, by statute.",
-    body: "Nevada law lets your investment advisor stay on the portfolio while Sava handles administration. The separation between the two roles is clean, formally recognized, and enforceable.",
+    body: "Your investment advisor stays on the portfolio while Sava administers. The separation is clean, formally recognized, and enforceable.",
   },
   {
-    headline: "Strongest asset protection in the country.",
-    body: "Nevada offers a two-year creditor lookback (the shortest in the U.S.) and recognizes no exception creditors. Once the statute of limitations runs, the protection is absolute.",
+    headline: "Strongest asset protection.",
+    body: "A two-year creditor lookback, the shortest in the country, with no exception creditors. Once that window passes, protection is absolute.",
   },
 ];
 
@@ -74,7 +75,7 @@ export function NevadaSection({
 
 function PhotoPanel() {
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-s-2xl bg-parchment-200">
+    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-s-[4px] bg-parchment-200">
       <Image
         src={asset("why-nevada.webp")}
         alt=""
@@ -83,7 +84,29 @@ function PhotoPanel() {
         quality={90}
         className="object-cover object-center"
       />
+      {/* Nevada advantages as chips down the left edge of the photo. */}
+      <div className="absolute top-12 left-5 flex flex-col items-start gap-2.5 sm:top-16 sm:left-8">
+        <NevadaChip Icon={Banknote} label="No state income tax" />
+        <NevadaChip Icon={Hourglass} label="365-year trusts" />
+        <NevadaChip Icon={Split} label="Directed trusts" />
+        <NevadaChip Icon={ShieldCheck} label="Asset protection" />
+      </div>
     </div>
+  );
+}
+
+function NevadaChip({
+  Icon,
+  label,
+}: {
+  Icon: ComponentType<SVGProps<SVGSVGElement>>;
+  label: string;
+}) {
+  return (
+    <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-white px-3 py-1.5 font-medium text-cedar-900 text-xs shadow-lg shadow-cedar-950/30 ring-1 ring-cedar-900/10">
+      <Icon aria-hidden="true" className="size-3.5 text-cedar-700" strokeWidth={2} />
+      {label}
+    </span>
   );
 }
 
@@ -99,10 +122,10 @@ function TextPanel({
   return (
     <div>
       <h2 className="font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
-        Why <em className="font-normal italic">Nevada.</em>
+        Why Nevada.
       </h2>
       <div
-        className={`mt-8 space-y-4 text-lg text-parchment-100/85 leading-[1.55] md:text-xl ${
+        className={`mt-8 space-y-4 text-[1.0625rem] text-parchment-100/85 leading-[1.55] md:text-[1.1875rem] ${
           wide ? "max-w-3xl" : "max-w-md"
         }`}
       >
@@ -116,7 +139,12 @@ function TextPanel({
       </div>
       {showButton && ctaHref && (
         <div className="mt-10">
-          <BrandButton asChild brand="primary" size="xl">
+          <BrandButton
+            asChild
+            brand="cedar"
+            size="xl"
+            className="rounded-sm border border-parchment-200 bg-parchment-100 font-sans text-cedar-900 transition-colors hover:border-cedar-700 hover:bg-cedar-700 hover:text-parchment-50"
+          >
             <Link href={ctaHref}>
               Read more <ArrowRight aria-hidden="true" />
             </Link>
@@ -145,15 +173,15 @@ function FactsRow() {
   );
 }
 
-// Cedar-toned leaf bleeding off either the LEFT or RIGHT viewport edge.
-// Same size / opacity treatment as services-section for visual rhyme.
+// Leaf silhouette bleeding off either the LEFT or RIGHT edge, one shade
+// lighter than the cedar ground.
 function NevadaLeaf({ side }: { side: "left" | "right" }) {
   const maskUrl = `url(${asset("leaves/test-15.png")})`;
   const left = side === "left";
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-y-0 z-0 w-[60%] bg-cedar-900/55 md:w-[55%] lg:w-[50%] ${
+      className={`pointer-events-none absolute inset-y-0 z-0 w-[60%] bg-cedar-800 md:w-[55%] lg:w-[50%] ${
         left ? "-start-4 md:-start-6 lg:-start-8" : "-end-4 md:-end-6 lg:-end-8"
       }`}
       style={{

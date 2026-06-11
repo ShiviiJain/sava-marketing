@@ -105,3 +105,32 @@
   background-color: var(--color-yarrow-500);
   transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
+
+/*
+ * Assurance-teaser line: draws once along the path through the chips, then
+ * sweeps back out, and replays. The 200-unit dash period makes 100 and -100
+ * equivalent so the loop is seamless. Honors prefers-reduced-motion.
+ */
+.tag-trace-line {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: tag-trace 6s ease-in-out infinite;
+}
+
+@keyframes tag-trace {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -100;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tag-trace-line {
+    animation: none;
+  }
+}

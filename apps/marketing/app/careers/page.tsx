@@ -17,13 +17,9 @@ export default function CareersPage() {
   return (
     <main>
       <section className="bg-cedar-700">
-        <div className="mx-auto max-w-5xl px-6 py-20 md:py-28">
-          <Eyebrow ground="cedar">Careers</Eyebrow>
-          <h1 className="mt-8 font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
-            <span className="block">Build the next great</span>
-            <span className="block">
-              trust <em className="font-normal italic">company.</em>
-            </span>
+        <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+          <h1 className="font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
+            Build the next great trust <em className="font-normal italic">company.</em>
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-parchment-100/85 leading-[1.55] md:text-xl">
             Sava is built by exceptional individuals who care deeply about making trust
@@ -33,10 +29,10 @@ export default function CareersPage() {
         </div>
         <div className="relative aspect-[16/7] w-full overflow-hidden bg-parchment-200">
           <Image
-            src={asset("careers-conversation.webp")}
+            src={asset("careers-conversation-hi.webp")}
             alt=""
             fill
-            sizes="100vw"
+            sizes="150rem"
             className="object-cover object-center"
             priority
           />

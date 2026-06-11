@@ -25,7 +25,7 @@ export default function AdvisorsPage() {
           <span className="block">Trust services that</span>
           <span className="block">protect your client</span>
           <span className="block">
-            <em className="font-normal italic">relationship.</em>
+            relationship.
           </span>
         </>
       }
@@ -34,59 +34,81 @@ export default function AdvisorsPage() {
       leaf="06"
       heroBridged
       platform={{
-        eyebrow: "The advisor workspace",
+        bands: true,
         heading: (
           <>
-            How we work with <em className="font-normal italic">advisors.</em>
+            How we work with advisors.
           </>
         ),
         features: [
           {
             eyebrow: "Directed structure",
             heading: (
-              <>
-                Investment authority stays <em className="font-normal italic">with you.</em>
-              </>
+              <span className="xl:whitespace-nowrap">Investment authority stays with you.</span>
             ),
             lede: "A directed trust separates administration from investment management. Sava administers, and you keep the investment mandate.",
             points: ["Investment director", "Role separation", "Nevada UDTA"],
             leaf: "12",
-            photo: asset("advisors-hero.webp"),
+            leafClassName: "top-[-21.5%] left-[-19.5%] w-[139.1%] h-[143%]",
+            photo: asset("advisors-meditation.webp"),
+            photoClassName: "aspect-[4/5] w-[61.1%] translate-x-[1px] translate-y-[4px]",
             cards: [
-              { node: <DirectedStructureCard />, className: "w-[92%]" },
-              { node: <AuthorityChip />, className: "-mt-[9%] ms-[38%] w-[58%]" },
+              {
+                node: <DirectedStructureCard />,
+                className: "top-[41%] left-[63.5%] w-[92%] scale-[0.56] origin-top-left",
+              },
+              {
+                node: <AuthorityChip />,
+                className: "top-[15.4%] left-[-1.5%] w-[58%] scale-[0.79] origin-top-left",
+              },
             ],
           },
           {
             eyebrow: "Custodial continuity",
             heading: (
               <>
-                Your custodians stay <em className="font-normal italic">put.</em>
+                Your custodians stay put.
               </>
             ),
             lede: "Existing custodians, accounts, and portfolio structures stay intact. Sava administers around them, and assets never move.",
             points: ["Schwab", "Fidelity", "No asset moves"],
             leaf: "24",
-            photo: asset("advisor-portrait.webp"),
+            leafClassName: "top-[-21.5%] left-[-19.5%] w-[139.1%] h-[143%]",
+            photo: asset("advisors-custodial.webp"),
+            photoClassName: "aspect-[4/5] w-[58.6%] translate-y-[1px]",
             cards: [
-              { node: <CustodianAccountsCard />, className: "w-[92%]" },
-              { node: <HoldingChip />, className: "-mt-[8%] ms-[44%] w-[54%]" },
+              {
+                node: <CustodianAccountsCard />,
+                className: "top-[56%] left-[-7.3%] w-[92%] scale-[0.53] origin-top-left",
+              },
+              {
+                node: <HoldingChip />,
+                className: "top-[14.2%] left-[64%] w-[54%] scale-[0.85] origin-top-left",
+              },
             ],
           },
           {
             eyebrow: "Reporting continuity",
             heading: (
               <>
-                Reporting that reconciles <em className="font-normal italic">itself.</em>
+                Reporting that reconciles itself.
               </>
             ),
             lede: "Custodian statements are parsed and matched to positions automatically, so administration stays aligned with how you already report.",
             points: ["Any custodian", "Auto-reconciled", "Discrepancy flags"],
             leaf: "33",
-            photo: asset("advisors-hero.webp"),
+            leafClassName: "top-[-21.5%] left-[-19.5%] w-[139.1%] h-[143%]",
+            photo: asset("advisors-reporting-v2.webp"),
+            photoClassName: "aspect-[4/5] w-[61.3%]",
             cards: [
-              { node: <StatementsCard />, className: "w-[92%]" },
-              { node: <ReconChip />, className: "-mt-[9%] ms-[38%] w-[58%]" },
+              {
+                node: <StatementsCard />,
+                className: "top-[52.7%] left-[56.3%] w-[92%] scale-[0.62] origin-top-left",
+              },
+              {
+                node: <ReconChip />,
+                className: "top-[11.9%] left-[-9.3%] w-[58%] scale-[0.81] origin-top-left",
+              },
             ],
           },
         ],

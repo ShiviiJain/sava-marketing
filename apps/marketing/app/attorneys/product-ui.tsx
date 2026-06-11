@@ -2,6 +2,7 @@ import { cn } from "@sava/ui";
 import { Briefcase, CheckCircle2, Clock, FileText, Users } from "lucide-react";
 import { Avatar, CardHeader, Dot, Pill } from "../_components/product-card";
 import { Eyebrow } from "../_components/ui/eyebrow";
+import { asset } from "../_lib/asset";
 
 /**
  * On-brand recreations of the attorney-facing product UI — the intake
@@ -210,11 +211,13 @@ export function DocRequestChip() {
 
 function PartyRow({
   initials,
+  src,
   name,
   roleLabel,
   divide,
 }: {
   initials: string;
+  src?: string;
   name: string;
   roleLabel: string;
   divide?: boolean;
@@ -226,7 +229,7 @@ function PartyRow({
         divide && "border-cedar-900/10 border-t"
       )}
     >
-      <Avatar initials={initials} />
+      <Avatar initials={initials} src={src} alt={name} />
       <span className="min-w-0 flex-1 truncate text-cedar-900 text-sm">{name}</span>
       <Eyebrow as="span">{roleLabel}</Eyebrow>
     </div>
@@ -243,10 +246,33 @@ export function PartiesCard() {
         sub="Everyone on the matter, with their role and standing."
       />
       <div className="py-1">
-        <PartyRow initials="RH" name="Robert James Henderson" roleLabel="Grantor" />
-        <PartyRow initials="SC" name="Sarah Chen" roleLabel="Trust officer" divide />
-        <PartyRow initials="DM" name="Daniel Mercer, Esq." roleLabel="Attorney" divide />
-        <PartyRow initials="EG" name="Eleanor W. Graham, CPA" roleLabel="CPA" divide />
+        <PartyRow
+          initials="RH"
+          src={asset("avatar-robert.webp")}
+          name="Robert James Henderson"
+          roleLabel="Grantor"
+        />
+        <PartyRow
+          initials="SC"
+          src={asset("avatar-sarah.webp")}
+          name="Sarah Chen"
+          roleLabel="Trust officer"
+          divide
+        />
+        <PartyRow
+          initials="DM"
+          src={asset("avatar-daniel.webp")}
+          name="Daniel Mercer, Esq."
+          roleLabel="Attorney"
+          divide
+        />
+        <PartyRow
+          initials="EG"
+          src={asset("avatar-eleanor.webp")}
+          name="Eleanor W. Graham, CPA"
+          roleLabel="CPA"
+          divide
+        />
       </div>
     </div>
   );

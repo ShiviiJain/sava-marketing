@@ -1,14 +1,12 @@
 import { cn } from "@sava/ui";
-import { Building2, Scale, ShieldCheck } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import type { ComponentType, SVGProps } from "react";
-import { Eyebrow } from "../_components/ui/eyebrow";
 import { ScrollReveal } from "../_components/ui/scroll-reveal";
 import { asset } from "../_lib/asset";
 
 interface ProtectionBlock {
-  Icon: ComponentType<SVGProps<SVGSVGElement>>;
+  /** Small muted label above the heading (Aesop-style kicker). */
+  kicker: string;
   term: string;
   body: string;
   src: string;
@@ -16,19 +14,19 @@ interface ProtectionBlock {
 
 const PROTECTIONS: ProtectionBlock[] = [
   {
-    Icon: Scale,
+    kicker: "Chartered oversight",
     term: "Law",
     body: "A Nevada state-chartered trust company, examined by the Financial Institutions Division and bound by law to put your interest first.",
     src: asset("assurance-law.webp"),
   },
   {
-    Icon: Building2,
+    kicker: "Segregated assets",
     term: "Structure",
     body: "Your assets sit with independent custodians, legally separate from Sava's balance sheet and beyond the reach of its creditors.",
     src: asset("assurance-structure.webp"),
   },
   {
-    Icon: ShieldCheck,
+    kicker: "Capital reserve",
     term: "Discipline",
     body: "A capital reserve of at least $1M from day one, half of it in cash. That floor only ever rises.",
     src: asset("assurance-discipline.webp"),
@@ -53,17 +51,17 @@ export default function AssurancePage() {
 }
 
 function Hero() {
-  // Bridged hero: parchment text panel on the left with cedar copy, photo
-  // on the right, leaf overlay at the seam. Light ground, so the nav stays
-  // solid (not in CEDAR_HERO_ROUTES).
+  // Bridged hero: cedar text panel on the left with light copy, photo on
+  // the right, leaf overlay at the seam. Cedar ground; the nav still sits
+  // solid above it (this hero doesn't bleed behind the nav).
   const leafMask = `url(${asset("leaves/test-30.png")})`;
   return (
-    <section className="relative isolate overflow-hidden bg-parchment-50">
+    <section className="relative isolate overflow-hidden bg-cedar-700">
       <div className="grid items-stretch md:grid-cols-2">
         <div className="relative flex flex-col justify-center overflow-hidden px-6 py-20 md:ps-14 md:pe-10 md:py-28 lg:ps-24 lg:pe-16 lg:py-36">
           <div
             aria-hidden="true"
-            className="-end-[22%] pointer-events-none absolute inset-y-0 z-0 w-[78%] bg-parchment-300"
+            className="-end-[22%] pointer-events-none absolute inset-y-0 z-0 w-[78%] bg-cedar-600"
             style={{
               maskImage: leafMask,
               maskRepeat: "no-repeat",
@@ -76,13 +74,12 @@ function Hero() {
             }}
           />
           <div className="relative z-10">
-            <h1 className="font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
+            <h1 className="font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
               How your trust is <em className="font-normal italic">protected.</em>
             </h1>
-            <p className="mt-8 max-w-xl text-cedar-900/70 text-lg leading-[1.55] md:text-xl">
-              Held by law, segregated by structure, and kept by the discipline we hold ourselves to.
-              Your assets sit apart from Sava, and if the day comes to move the trust elsewhere,
-              nothing in the way we work will hold it back.
+            <p className="mt-8 max-w-xl text-lg text-parchment-100/85 leading-[1.55] md:text-xl">
+              Your assets sit apart from Sava and stay yours at every step. If you ever decide to
+              move the trust elsewhere, nothing about how we work will stand in your way.
             </p>
           </div>
         </div>
@@ -105,11 +102,10 @@ function Hero() {
 function Commitments() {
   return (
     <section className="overflow-hidden bg-parchment-50 py-24 sm:py-32">
-      <div className="mx-auto max-w-5xl px-6">
-        <header className="max-w-4xl">
-          <h2 className="text-balance font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl">
-            The commitments that shape every trust we{" "}
-            <em className="font-normal italic">administer.</em>
+      <div className="mx-auto max-w-6xl px-6">
+        <header>
+          <h2 className="text-balance font-normal font-serif text-2xl text-cedar-900 leading-[1.1] tracking-[-0.02em] sm:text-3xl">
+            The commitments that shape every trust we administer.
           </h2>
         </header>
       </div>
@@ -148,48 +144,87 @@ function Commitments() {
 
 function ProtectionMechanics() {
   return (
-    <section className="overflow-hidden bg-cedar-700 py-24 sm:py-32">
-      <div className="mx-auto max-w-5xl px-6">
-        <header className="max-w-3xl">
-          <h2 className="font-normal font-serif text-3xl text-parchment-50 leading-[1.05] tracking-[-0.02em] sm:text-4xl">
-            Protection, <em className="font-normal italic">by design.</em>
+    <section className="overflow-hidden bg-parchment-50 py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl px-6">
+        <header>
+          <h2 className="font-normal font-serif text-3xl text-cedar-900 leading-[1.05] tracking-[-0.02em] sm:text-4xl">
+            Built to protect.
           </h2>
-          <p className="mt-8 text-lg text-parchment-100/85 leading-[1.55] md:text-xl">
-            Less a promise than a design. Three layers stand between your trust and anything that
-            could reach it.
+          <p className="mt-6 font-normal font-serif text-cedar-900 text-lg leading-snug md:text-xl">
+            Built-in layers of protection stand between your trust and anything that could reach it.
           </p>
         </header>
-        <div className="mt-16 grid gap-8 sm:grid-cols-3 md:mt-20 md:gap-10">
-          {PROTECTIONS.map((protection, i) => (
-            <ScrollReveal key={protection.term} delay={i * 120}>
-              <ProtectionCard {...protection} />
-            </ScrollReveal>
-          ))}
-        </div>
+      </div>
+      <div className="mt-16 space-y-20 md:mt-20 md:space-y-28">
+        {PROTECTIONS.map((protection, i) => (
+          <ScrollReveal key={protection.term}>
+            <ProtectionRow {...protection} flip={i % 2 === 1} />
+          </ScrollReveal>
+        ))}
       </div>
     </section>
   );
 }
 
-function ProtectionCard({ Icon, term, body, src }: ProtectionBlock) {
-  return (
-    <div className="flex h-full flex-col">
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-cedar-800">
-        <Image
-          src={src}
-          alt=""
-          fill
-          sizes="(min-width: 640px) 30vw, 100vw"
-          quality={90}
-          className="object-cover object-center"
-        />
-      </div>
-      <Icon aria-hidden="true" className="mt-6 size-7 stroke-yarrow-500" strokeWidth={1.5} />
-      <h3 className="mt-4 font-normal font-serif text-2xl text-parchment-50 leading-tight">
+// Edge-bleed row: the photo runs to the viewport edge on its side and takes
+// half the width; the text column pads itself so its inner edge still lands on
+// the page's max-w-6xl (72rem) content margin. Sides alternate per row.
+function ProtectionRow({ kicker, term, body, src, flip }: ProtectionBlock & { flip: boolean }) {
+  const photo = (
+    <div
+      className={cn(
+        "relative aspect-[3/2] w-full overflow-hidden bg-parchment-200",
+        flip ? "md:rounded-s-[2px]" : "md:rounded-e-[2px]"
+      )}
+    >
+      <Image
+        src={src}
+        alt=""
+        fill
+        sizes="(min-width: 768px) 50vw, 100vw"
+        quality={95}
+        className="object-cover object-center"
+      />
+    </div>
+  );
+  const text = (
+    <div
+      className={cn(
+        "mx-auto flex w-full max-w-xl flex-col md:mx-0 md:max-w-none",
+        flip
+          ? "px-6 md:pe-12 md:ps-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] lg:pe-16"
+          : "px-6 md:ps-12 md:pe-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] lg:ps-16"
+      )}
+    >
+      <p className="font-mono text-yarrow-600 text-sm uppercase tracking-[0.16em]">{kicker}</p>
+      <h3 className="mt-2 font-normal font-serif text-2xl text-cedar-900 leading-snug md:text-3xl">
         {term}
       </h3>
-      <p className="mt-3 text-base text-parchment-100/75 leading-relaxed">{body}</p>
+      <p className="mt-4 max-w-md text-lg text-cedar-900/65 leading-relaxed">{body}</p>
     </div>
+  );
+
+  return (
+    // Text top-aligns with the top of the photo (items-start). Photo takes
+    // ~46.5% (≈7% shorter in length than a clean half) and bleeds to the edge.
+    <article
+      className={cn(
+        "grid items-start gap-8 md:gap-0",
+        flip ? "md:grid-cols-[1fr_46.5%]" : "md:grid-cols-[46.5%_1fr]"
+      )}
+    >
+      {flip ? (
+        <>
+          {text}
+          {photo}
+        </>
+      ) : (
+        <>
+          {photo}
+          {text}
+        </>
+      )}
+    </article>
   );
 }
 
@@ -206,14 +241,14 @@ function Tenet({
   src: string;
   align: "left" | "right";
 }) {
-  // Photo column bleeds to the viewport edge on its side. Text column
-  // pads itself out so the inner edge of the copy still aligns with the
-  // page's max-w-5xl content margin.
+  // Matches ProtectionRow exactly: photo bleeds to the viewport edge and takes
+  // ~46.5%; the text column pads out so its inner edge lands on the page's
+  // max-w-6xl (72rem) content margin.
   const photo = (
     <div
       className={cn(
-        "relative aspect-[4/3] w-full overflow-hidden bg-parchment-200",
-        align === "left" ? "md:rounded-e-2xl" : "md:rounded-s-2xl"
+        "relative aspect-[3/2] w-full overflow-hidden bg-parchment-200",
+        align === "left" ? "md:rounded-e-[2px]" : "md:rounded-s-[2px]"
       )}
     >
       <Image
@@ -229,24 +264,29 @@ function Tenet({
   const text = (
     <div
       className={cn(
-        "mx-auto flex w-full max-w-xl flex-col justify-center py-10 md:mx-0 md:max-w-none md:py-0",
+        "mx-auto flex w-full max-w-xl flex-col md:mx-0 md:max-w-none",
         align === "left"
-          ? "px-6 md:ps-12 md:pe-[max(1.5rem,calc((100vw-64rem)/2+1.5rem))] lg:ps-16"
-          : "px-6 md:pe-12 md:ps-[max(1.5rem,calc((100vw-64rem)/2+1.5rem))] lg:pe-16"
+          ? "px-6 md:ps-12 md:pe-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] lg:ps-16"
+          : "px-6 md:pe-12 md:ps-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] lg:pe-16"
       )}
     >
-      <Eyebrow as="span" uppercase={false}>
-        {index}
-      </Eyebrow>
-      <h3 className="mt-3 font-normal font-serif text-2xl text-cedar-900 leading-tight md:text-3xl">
+      <p className="font-mono text-yarrow-600 text-sm uppercase tracking-[0.16em]">{index}</p>
+      <h3 className="mt-2 font-normal font-serif text-2xl text-cedar-900 leading-snug md:text-3xl">
         {term}
       </h3>
-      <p className="mt-4 text-base text-cedar-900/70 leading-relaxed md:text-lg">{body}</p>
+      <p className="mt-4 max-w-md text-lg text-cedar-900/65 leading-relaxed">{body}</p>
     </div>
   );
 
   return (
-    <article className="grid items-center gap-10 md:grid-cols-2 md:gap-0">
+    // Text top-aligns with the photo; photo takes ~46.5% (≈7% shorter in
+    // length than a clean half) and bleeds to the edge.
+    <article
+      className={cn(
+        "grid items-start gap-8 md:gap-0",
+        align === "left" ? "md:grid-cols-[46.5%_1fr]" : "md:grid-cols-[1fr_46.5%]"
+      )}
+    >
       {align === "left" ? photo : text}
       {align === "left" ? text : photo}
     </article>

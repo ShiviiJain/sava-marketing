@@ -24,7 +24,7 @@ export default function AttorneysPage() {
         <>
           <span className="block">A fiduciary partner</span>
           <span className="block">
-            you can put your name <em className="font-normal italic">behind.</em>
+            you can put your name behind.
           </span>
         </>
       }
@@ -33,10 +33,10 @@ export default function AttorneysPage() {
       leaf="30"
       heroBridged
       platform={{
-        eyebrow: "The attorney workspace",
+        bands: true,
         heading: (
           <>
-            How we work with <em className="font-normal italic">counsel.</em>
+            How we work with counsel.
           </>
         ),
         features: [
@@ -44,48 +44,72 @@ export default function AttorneysPage() {
             eyebrow: "Intake pipeline",
             heading: (
               <>
-                Every matter, in one <em className="font-normal italic">pipeline.</em>
+                Every matter, in one pipeline.
               </>
             ),
             lede: "Track each client trust from intake through KYC, underwriting, and funding. Health and stage stay visible at a glance.",
             points: ["Intake", "KYC", "Underwriting", "Funding"],
             leaf: "18",
+            leafClassName: "top-[-21.5%] left-[-19.5%] w-[139.1%] h-[143%]",
             photo: asset("attorneys-1.webp"),
+            photoClassName: "aspect-[4/5] w-[58.7%]",
             cards: [
-              { node: <MattersPipelineCard />, className: "w-[92%]" },
-              { node: <StageChip />, className: "-mt-[8%] ms-[40%] w-[56%]" },
+              {
+                node: <MattersPipelineCard />,
+                className: "top-[48%] left-[-14.8%] w-[92%] scale-[0.6] origin-top-left",
+              },
+              {
+                node: <StageChip />,
+                className: "top-[12.7%] left-[57.5%] w-[56%] scale-[0.72] origin-top-left",
+              },
             ],
           },
           {
             eyebrow: "Document coordination",
             heading: (
               <>
-                Funding documents, <em className="font-normal italic">coordinated.</em>
+                Funding documents, coordinated.
               </>
             ),
             lede: "Trust instruments, certificates, EIN letters, and funding schedules requested, tracked, and reviewed in one place.",
             points: ["Trust instrument", "Certificates", "Funding letters"],
             leaf: "22",
+            leafClassName: "top-[-21.5%] left-[-19.5%] w-[125.9%] h-[133.4%]",
             photo: asset("attorneys-2.webp"),
+            photoClassName: "aspect-[4/5] w-[58.9%] translate-x-[-59px] translate-y-[7px]",
             cards: [
-              { node: <DocCoordinationCard />, className: "w-[92%]" },
-              { node: <DocRequestChip />, className: "-mt-[8%] ms-[46%] w-[52%]" },
+              {
+                node: <DocCoordinationCard />,
+                className: "top-[48%] left-[54.8%] w-[92%] scale-[0.6] origin-top-left",
+              },
+              {
+                node: <DocRequestChip />,
+                className: "top-[21.4%] left-[-13%] w-[52%] scale-[0.84] origin-top-left",
+              },
             ],
           },
           {
             eyebrow: "Parties & KYC",
             heading: (
               <>
-                Roles and structure, kept <em className="font-normal italic">intact.</em>
+                Roles and structure, kept intact.
               </>
             ),
             lede: "Grantors, beneficiaries, counsel, and advisors stay in sync, with KYC tracked across every party.",
             points: ["Roles intact", "KYC tracking", "Every party"],
             leaf: "09",
+            leafClassName: "top-[-8%] left-[-19.5%] w-[141.1%] h-[132.5%]",
             photo: asset("attorneys-3.webp"),
+            photoClassName: "aspect-[4/5] w-[61.5%] translate-x-[41px] translate-y-[16px]",
             cards: [
-              { node: <PartiesCard />, className: "w-[92%]" },
-              { node: <KycChip />, className: "-mt-[9%] ms-[36%] w-[60%]" },
+              {
+                node: <PartiesCard />,
+                className: "top-[21.1%] left-[-9.1%] w-[92%] scale-[0.58] origin-top-left",
+              },
+              {
+                node: <KycChip />,
+                className: "top-[71.9%] left-[59.8%] w-[60%] scale-[0.86] origin-top-left",
+              },
             ],
           },
         ],

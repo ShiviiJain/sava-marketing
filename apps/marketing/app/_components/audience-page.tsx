@@ -192,7 +192,7 @@ function Hero({ eyebrow, headline, lede, heroImage, leaf, bridged }: HeroProps) 
           >
             {headline}
           </h1>
-          <p className="mt-8 max-w-2xl text-lg text-parchment-100/85 leading-[1.55] md:text-xl">
+          <p className="mt-8 max-w-2xl text-[1.0625rem] text-parchment-100/75 leading-[1.55] md:text-[1.1875rem]">
             {lede}
           </p>
         </div>
@@ -229,7 +229,7 @@ function Hero({ eyebrow, headline, lede, heroImage, leaf, bridged }: HeroProps) 
             >
               {headline}
             </h1>
-            <p className="mt-8 max-w-xl text-lg text-parchment-100/85 leading-[1.55] md:text-xl">
+            <p className="mt-8 max-w-xl text-[1.0625rem] text-parchment-100/75 leading-[1.55] md:text-[1.1875rem]">
               {lede}
             </p>
           </div>
@@ -271,7 +271,7 @@ function BridgedHero({ eyebrow, headline, lede, heroImage, leaf }: HeroProps) {
             >
               {headline}
             </h1>
-            <p className="mt-8 max-w-xl text-lg text-parchment-100/85 leading-[1.55] md:text-xl">
+            <p className="mt-8 max-w-xl text-[1.0625rem] text-parchment-100/75 leading-[1.55] md:text-[1.1875rem]">
               {lede}
             </p>
           </div>
@@ -281,7 +281,7 @@ function BridgedHero({ eyebrow, headline, lede, heroImage, leaf }: HeroProps) {
             src={heroImage?.src ?? ""}
             alt={heroImage?.alt ?? ""}
             fill
-            sizes="(min-width: 768px) 60vw, 100vw"
+            sizes="(min-width: 768px) 200rem, 100vw"
             quality={90}
             className="object-cover object-center"
             priority

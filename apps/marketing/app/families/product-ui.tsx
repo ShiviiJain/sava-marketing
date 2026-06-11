@@ -2,6 +2,7 @@ import { cn } from "@sava/ui";
 import { CheckCircle2, ChevronRight, Mail, Scale, ShieldCheck, Users } from "lucide-react";
 import { Avatar, CardHeader, Field } from "../_components/product-card";
 import { Eyebrow } from "../_components/ui/eyebrow";
+import { asset } from "../_lib/asset";
 
 /**
  * On-brand recreations of the family-portal product crops for the
@@ -38,7 +39,7 @@ export function TrustSummaryCard() {
       </div>
 
       <div className="mt-6 flex items-center gap-2.5 border-cedar-900/10 border-t pt-4 text-cedar-900/60 text-xs">
-        <Avatar initials="SC" />
+        <Avatar initials="SC" src={asset("avatar-sarah.webp")} alt="Sarah Chen" />
         <span className="font-medium text-cedar-900">Sarah Chen</span>
         <span aria-hidden className="size-1 rounded-full bg-cedar-900/25" />
         <span>Trust Officer</span>
@@ -161,7 +162,7 @@ export function DirectorsCard() {
 export function OfficerCard() {
   return (
     <div className="flex items-center gap-3 p-4">
-      <Avatar initials="SC" />
+      <Avatar initials="SC" src={asset("avatar-sarah.webp")} alt="Sarah Chen" />
       <div className="min-w-0">
         <p className="font-medium text-cedar-900 text-sm leading-tight">Sarah Chen</p>
         <p className="mt-0.5 text-cedar-900/55 text-xs">Your trust officer</p>

@@ -66,7 +66,7 @@ export function BreakoutBanner() {
             alt=""
             width={1391}
             height={1467}
-            sizes="(min-width: 768px) 26rem, 55vw"
+            sizes="(min-width: 768px) 40rem, 55vw"
             quality={90}
             className="h-full w-auto object-contain drop-shadow-2xl"
           />
